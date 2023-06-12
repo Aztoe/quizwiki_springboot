@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 
 import org.springframework.stereotype.Repository;
 
+import com.multi.quizwiki.dto.PboardDTO;
 import com.multi.quizwiki.entity.pboard.PboardEntity;
 import com.multi.quizwiki.entity.problem.ProblemChoiseEntity;
 import com.multi.quizwiki.entity.problem.ProblemEntity;
@@ -37,6 +38,11 @@ public class PboardDAOImpl implements PboardDAO{
 	@Override
 	public void problemChoise_insert(ProblemChoiseEntity problemChoise) {
 		em.persist(problemChoise);
+	}
+
+	@Override
+	public int insert(PboardDTO pboard) {
+		return 0;
 	}
 	
 }
