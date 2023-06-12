@@ -37,8 +37,9 @@
 
 #add_popup_form{
 	position:absolute;
-	width:80%;
-	height:fit-content;
+	width: 90%;
+    height: 95%;
+    overflow-y: scroll;
 	top:50%;
 	left:50%;
 	padding: 30px 100px;
@@ -81,6 +82,9 @@
 .add_popup_cbox{
 	align-self: center;
 	margin-left:auto;
+}
+.add_popup_cbox label{
+	padding: 5px 10px;
 }
 
 #add_popup_form fieldset{
@@ -186,6 +190,7 @@ textarea.custom-input{
 /* preview */
 
 .add_popup_preview{
+	word-break: break-all;
 	width:50%;
 	padding:15px;
 }
@@ -211,11 +216,25 @@ textarea.custom-input{
 	margin: 15px 0;
 	background-color:whitesmoke;
 }
+.preview-printfile{
+	width:100%;
+	height:250px;
+	display:none;
+}
+.preview-printfile img{
+	width: 100%;
+  	height: 100%;
+  	object-fit: contain;
+}
 
 
 /* 객관식 */
 .pmaker_answer_cbox{
 	align-self: center;
+}
+.answer-item{
+	align-self: center;
+	padding:5px;
 }
 
 .add_popup_cbox label{
@@ -227,6 +246,7 @@ textarea.custom-input{
 }
 
 #pmaker_answer_list{
+	width:80%;
 	font-family: "Pretendard";
 	list-style-type: decimal;
 }
@@ -288,6 +308,40 @@ textarea.custom-input{
     color: #932b2b;
 }
 
+.answer-wrap{
+    position: relative;
+	display:flex;
+}
+.answer-delete-btn{
+    left: 90%;
+    top: 15%;
+    position: absolute;
+    
+	cursor:pointer;
+	color:#cd4141;
+	margin-left:5px;
+	width:15px;
+	height:15px;
+	align-self: center;
+}
+
+.cbox-item{
+	align-self: center;
+}
+
+.answer-ratio-text{
+}
+
+.input-label{
+	font-size: 12px;
+	color: gray;
+}
+
+.popup-input-wrap{
+	width:100%;
+}
+
+
 
 @media (max-width: 1600px) {
 	.add_popup_preview{
@@ -306,4 +360,10 @@ textarea.custom-input{
 		padding: 0;
 	}
 	
+	.add_popup_title h1 {
+		font-size: 32px;
+	}
+	.add_popup_maker h4 {
+		font-size: 9px;
+	}
 }

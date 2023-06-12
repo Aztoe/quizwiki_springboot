@@ -1,6 +1,7 @@
 package com.multi.quizwiki.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -18,6 +19,9 @@ public class PboardDTO {
 	private int show_count; // 조회수 int
 	private int like_count; // 좋아요수 int
 	private String status; //게시물상태flag varchar(1)
+	
+	
+	private List<ProblemDTO> plist; //문제리스트 list
 	
 	//insert용 (문제게시물 작성)
 	public PboardDTO(String member_id, int scate_id, String content, Timestamp regdate) {

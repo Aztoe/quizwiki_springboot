@@ -7,34 +7,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MypageController {
 	@RequestMapping("/mypage/mycontentroom")
 	public String mycontentroom() {
-		return "mypage/mycontentroom";
+		return "thymeleaf/mypage/mycontentroom";
 	}
 	@RequestMapping("/mypage/ask")
 	public String ask() {
-		return "mypage/ask";
+		return "thymeleaf/mypage/ask";
 	}
-	@RequestMapping("/mypage/cash")
+	@RequestMapping("/mypage/myproblem")
 	public String cash() {
-		return "mypage/cash";
+		return "thymeleaf/mypage/myproblem";
 	}
 	@RequestMapping("/mypage/modify")
 	public String modify() {
-		return "mypage/modify";
+		return "thymeleaf/mypage/modify";
 	}
 	@RequestMapping("/mypage/myquestion")
 	public String myquestion() {
-		return "mypage/myquestion";
+		return "thymeleaf/mypage/myquestion";
 	}
-	@RequestMapping("/mypage/payment")
+	@RequestMapping("/mypage/note")
 	public String payment() {
-		return "mypage/payment";
+		return "thymeleaf/mypage/note";
 	}
 	@RequestMapping("/mypage/point")
 	public String point() {
-		return "mypage/point";
+		return "thymeleaf/mypage/point";
 	}
 	@RequestMapping("/mypage/suggest")
 	public String suggest() {
-		return "mypage/suggest";
+		return "thymeleaf/mypage/suggest";
+	}
+	@RequestMapping("/mypage/wronganserWrite")
+	public String wronganserWrite() {
+		return "thymeleaf/mypage/wronganserWrite";
+	}
+	@RequestMapping("/mypage/otoWrite")
+	public String otoWrite() {
+		return "thymeleaf/mypage/otoWrite";
+	}
+	@RequestMapping("/mypage/oto2")
+	public String oto() {
+		return "thymeleaf/mypage/oto";
+	}
+	@RequestMapping("/mypage/wronganser")
+	public String wronganser() {
+		return "thymeleaf/mypage/wronganser";
 	}
 }

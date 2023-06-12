@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+  	<link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/header.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/footer.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="/css/mypage/mypage_header.css" />
+</head>
+<body>
+	<th:block th:replace="/fragment/header :: header"></th:block>
+	<section>
+		<th:block th:replace="/thymeleaf/mypage/mypage_header :: menu"></th:block>
+		<th:block layout:fragment ="content"></th:block>
+	</section>
+	<th:block th:replace="/fragment/footer :: footer"></th:block>
+</body>
+</html>

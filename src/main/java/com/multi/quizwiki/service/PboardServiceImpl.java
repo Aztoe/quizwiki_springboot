@@ -1,12 +1,17 @@
 package com.multi.quizwiki.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.multi.quizwiki.dao.PboardDAO;
-import com.multi.quizwiki.dto.PboardDTO;
+import com.multi.quizwiki.entity.pboard.PboardEntity;
+import com.multi.quizwiki.entity.problem.ProblemChoiseEntity;
+import com.multi.quizwiki.entity.problem.ProblemEntity;
 
 @Service
+@Transactional
 public class PboardServiceImpl implements PboardService{
 
 	PboardDAO pboardDao;
@@ -21,9 +26,10 @@ public class PboardServiceImpl implements PboardService{
 	}
 	
 	@Override
-	public int insert(PboardDTO pboard) {
-		int result = pboardDao.insert(pboard);
-		return result;
+	public void insert(PboardEntity pboard,ProblemEntity problem, ProblemChoiseEntity problemChoise) {
+		pboardDao.pboard_insert(pboard);
+		pboardDao.problem_insert(problem);
+		pboardDao.problemChoise_insert(problemChoise);
 	}
 	
 }

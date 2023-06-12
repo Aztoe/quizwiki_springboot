@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Alias("problem")
 @Data
-public class problemDTO {
+public class ProblemDTO {
 	private int problem_id;
 	private int pboard_id;
 	private String type;
@@ -21,7 +21,7 @@ public class problemDTO {
 	
 	
 	//insert 등록용
-	public problemDTO(int pboard_id, String type, String content, int index, String answer, String print, String desc,
+	public ProblemDTO(int pboard_id, String type, String content, int index, String answer, String print, String desc,
 			Timestamp editdate) {
 		this.pboard_id = pboard_id;
 		this.type = type;

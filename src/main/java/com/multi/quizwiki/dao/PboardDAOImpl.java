@@ -1,28 +1,42 @@
 package com.multi.quizwiki.dao;
 
-import org.apache.ibatis.session.SqlSession;
+import javax.persistence.EntityManager;
+
 import org.springframework.stereotype.Repository;
 
-import com.multi.quizwiki.dto.PboardDTO;
+import com.multi.quizwiki.entity.pboard.PboardEntity;
+import com.multi.quizwiki.entity.problem.ProblemChoiseEntity;
+import com.multi.quizwiki.entity.problem.ProblemEntity;
 
 @Repository
 public class PboardDAOImpl implements PboardDAO{
 	
-	SqlSession tem;
+	EntityManager em;
 	
 	public PboardDAOImpl() {
 		
 	}
 	
-	public PboardDAOImpl(SqlSession tem) {
-		this.tem = tem;
+	public PboardDAOImpl(EntityManager em) {
+		this.em = em;
+	}
+	
+	
+	
+
+	@Override
+	public void pboard_insert(PboardEntity pboard) {
+		em.persist(pboard);
 	}
 
 	@Override
-	public int insert(PboardDTO pboard) {
-		int result = 
-				tem.insert("com.multi.quizwiki.pboard.insert", pboard);
-		return result;
+	public void problem_insert(ProblemEntity problem) {
+		em.persist(problem);
+	}
+
+	@Override
+	public void problemChoise_insert(ProblemChoiseEntity problemChoise) {
+		em.persist(problemChoise);
 	}
 	
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/mypagelayout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/mypage/mycontentroom.css" />
+<link rel="stylesheet" type="text/css" href="/css/mypage/mypagecontent.css" />
+
+</script>
+</head>
+<body>
+	
+	<section layout:fragment="content">
+		<div id="myPage_contents">
+				<div class="inner_cont">
+						<div class="myPage_title flex_wrap">
+							<h6 style="font-size: 35px">1 : 1 문의</h6>
+							<p>문의사항을 알려주세요 빠르게 답변해드리겠습니다.</p>
+						</div>
+						
+						<div class="write_form">
+							<dl>
+								<dt>제목</dt>
+								<p>세제곱근으로 되어있네요</p>
+							</dl>
+							<dl>
+								<dt>작성자</dt>
+								<p>aaa212188</p>
+							</dl>
+							<dl id="otoContent">
+								<dt>내용</dt>
+								<dd >오늘 문제 질이 왜이렇나요? 쓰레기네요ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+								
+								</dd>
+							</dl>
+							<dl>
+								<dt>파일첨부</dt>
+								<dd>
+									문제 파일
+								</dd>
+							</dl>
+						</div>
+						<div class="inner_section">
+						<div class="section_title flex_wrap">
+						<p class="title">
+							<span class="bl02">관리자의 답변</span>
+						</p>
+						<div class="write_form">
+							<dl></dl>
+							<dl>
+								<dd>안녕하십니까 고객님. 오답 문항에 대한 신고가 접수 되었습니다.
+								빠른 시일 내에 답변 수정하도록 하겠습니다. 항상 저희 사이트를 이용해주셔서 감사하고
+								이런 일이 반복되지 않도록 더욱 주의하는 퀴즈위키 되도록 노력하겠습니다.
+								<dd>
+							</dl>
+						</div>
+						</div>
+					</div>
+						
+						<div class="flex_wrap btn_wraps">
+							<button type="button" class="comm_buttons" style="margin: 0 10px" onClick="location.href='#'">삭제하기</button>
+							
+							<button class="comm_buttons fill" style="margin: 0 10px;">수정하기</button>
+						</div>
+						
+					</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

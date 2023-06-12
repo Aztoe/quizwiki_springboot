@@ -43,7 +43,7 @@
 }
 
 
-#editor-form{
+#editorform{
 	margin: 0 auto;
     padding: 15px 20px;
     margin-bottom: 30px;
@@ -61,7 +61,7 @@
     color: #212121;
 }
 
-#editor-form #smart_editor2{
+#editorform #smart_editor2{
 	width: 100%;
 }
 
@@ -167,6 +167,11 @@
 	padding:10px 1%;
 	text-align: center;
 }
+.plist-btntd{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
 .plist-item-type{
 	width:8%;
 	padding:10px 1%;
@@ -174,10 +179,29 @@
 .plist-item-content{
 	width:68%;
 	padding:10px 1%;
-	
 }
 .plist-item-edit{
 	width:8%;
 	padding:10px 1%;
 }
 
+.plist-edit-btn{
+	cursor: pointer;
+	text-shadow: 1px 1px 2px green;
+}
+.plist-delete-btn{
+	cursor: pointer;
+	text-shadow: 1px 1px 2px red;
+}
+
+
+
+#swal2-title{
+	font-family: "Esamanru";
+}
+#swal2-html-container{
+	font-family: "Esamanru";
+}
+.swal2-styled{
+	font-family: "Esamanru";
+}

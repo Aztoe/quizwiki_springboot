@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,16 +38,17 @@ public class QBoardController {
 	public String show_qboard_read() {
 		return "thymeleaf/qboard/qboard_read";
 	}
-	@GetMapping("/qboard/write.do")
-	public String QboardWrite(@RequestParam(value="qboard_id",required=false) int qboard_id, Model model) {
-		if(qboard_id != 0) {
+	@PostMapping("/qboard/write.do")
+	public String QboardWrite(QboardDTO qboard, Model model) {
+			qboardservice.insert(qboard);
 			model.addAttribute("qboard", new QboardDTO());
-		} /*
+			System.out.println("write.do 실행");
+			/*
 			 * else { QboardDTO qboard = qboardservice.getQboardDetail(qboard_id); if
 			 * (qboard == null) { return "redirect:/qboard/list.do"; }
 			 * model.addAttribute("qboard",qboard); }
 			 */
-		return "qboard/qboard_write";
+		return "qboard/write";
 	}
 	
 	/*

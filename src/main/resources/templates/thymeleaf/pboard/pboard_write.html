@@ -13,6 +13,9 @@
 	href="/css/pboard/pboard_add_popup.css" />
 <!-- js -->
 <script src="/libs/se2/js/service/HuskyEZCreator.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 
 </head >
 <body>
@@ -25,7 +28,7 @@
 
 			</div>
 
-			<form id="editor-form" name="editor-form" action="POST">
+			<form id="editorform" name="editorform" action="POST">
 				<div>
 					<input id="pboard-title-input" placeholder="글 제목을 입력해주세요."
 						name="title" type="text" />
@@ -37,7 +40,7 @@
 				<div id="pmaker-area">
 					<div class="pmaker-desc-container">
 						<h1>문제만들기</h1>
-						<h6>객관식(2개~5개선택지),주관식(정답 30자제한) 게시물당 최대 40개의 문항을 만들 수 있습니다.</h6>
+						<h6>문제 추가 버튼을 눌러서 문제를 만들 수 있습니다.</h6>
 
 						<div id="plist-add-btn" class="ui-btn">문제 추가</div>
 					</div>
@@ -53,35 +56,6 @@
 						</thead>
 
 						<tbody id="plist-body">
-							<tr class="putable" draggable="true">
-								<td class="plist-item-no plist-right-border">1</td>
-								<td class="plist-item-no plist-right-border">객관식</td>
-								<td class="plist-item-content plist-right-border">다음중 옳바른
-									것을 고르시오.</td>
-								<td class="plist-item-no"><i
-									class="fa-solid fa-pen-to-square"></i> <i
-									class="fa-sharp fa-solid fa-trash"></i></td>
-							</tr>
-
-							<tr class="putable" draggable="true">
-								<td class="plist-item-no plist-right-border">2</td>
-								<td class="plist-item-no plist-right-border">주관식</td>
-								<td class="plist-item-content plist-right-border">다음에 해당하는
-									것을 적으시오.</td>
-								<td class="plist-item-no"><i
-									class="fa-solid fa-pen-to-square"></i> <i
-									class="fa-sharp fa-solid fa-trash"></i></td>
-							</tr>
-
-							<tr class="putable" draggable="true">
-								<td class="plist-item-no plist-right-border">3</td>
-								<td class="plist-item-no plist-right-border">주관식</td>
-								<td class="plist-item-content plist-right-border">다음에 해당하는
-									것을 적으시오.</td>
-								<td class="plist-item-no"><i
-									class="fa-solid fa-pen-to-square"></i> <i
-									class="fa-sharp fa-solid fa-trash"></i></td>
-							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -89,13 +63,16 @@
 				<div class="hr-shifter"></div>
 
 				<div class="btn-list">
-					<div id="write-btn" class="ui-btn">게시하기</div>
+					<div id="writebtn" class="ui-btn">게시하기</div>
 				</div>
 			</form>
 		</div>
 
 	</div>
 
+
+
+<!--====================== modal popup ================ -->
 	<div id="add_popup">
 		<div id="add_popup_bg"></div>
 		<form id="add_popup_form">
@@ -106,16 +83,14 @@
 				<div class="add_popup_cbox">
 					<fieldset>
 						<legend>문제 유형</legend>
-						<div style="align-self: center;">
+						<div class="cbox-item">
 							<input id="stype-ratio" type="radio" name="type" value="s" /> <label
 								for="stype-ratio"> <span class="round">라디오버튼</span> <i
 								class="far fa-comment-dots"></i> 주관식
 							</label>
 						</div>
 
-						<div style="align-self: center;" class="cbox-shifter"></div>
-
-						<div style="align-self: center;">
+						<div class="cbox-item">
 							<input id="mtype-ratio" type="radio" name="type" value="m"
 								checked /> <label for="mtype-ratio"> <span class="round">라디오버튼</span>
 								<i class="fa-solid fa-list"></i> 객관식
@@ -132,49 +107,61 @@
 				<div class="add_popup_maker">
 					<div class="pmaker_item">
 						<h4>문제 내용:</h4>
-						<input class="custom-input" type="text" />
+						<div class="popup-input-wrap">
+							<input maxlength="200" name="content" class="custom-input" type="text" />
+							<p class="input-label"><span class="input-label-count">0</span>/200</p>
+						</div>
 					</div>
 
 					<div class="pmaker_item">
 						<h4>지문:</h4>
-						<textarea rows="3" class="custom-input"></textarea>
+						<div class="popup-input-wrap">
+							<textarea maxlength="3000" name="print" rows="3" class="custom-input"></textarea>
+							<p class="input-label"><span class="input-label-count">0</span>/3000</p>
+						</div>
 					</div>
+					
 
 					<div class="pmaker_item">
 						<h4>지문 첨부파일:</h4>
-						<input class="custom-input" type="file" />
+						<input name="printfile" class="custom-input" type="file" accept="image/gif,image/png,image/jpeg"/>
 					</div>
 
 					<div class="mp-items">
 						<div class="pmaker_item">
 							<h4>선택지:</h4>
 							<ul id="pmaker_answer_list">
-								<li><input class="custom-input" type="text" /></li>
-								<li><input class="custom-input" type="text" /></li>
+								<li>
+									<input maxlength="200" name="choise" class="custom-input" type="text" oninput="syncChoise(this)"/>
+									<p class="input-label"><span class="input-label-count">0</span>/200</p>
+								</li>
+								<li>
+									<input maxlength="200" name="choise" class="custom-input" type="text" oninput="syncChoise(this)"/>
+									<p class="input-label"><span class="input-label-count">0</span>/200</p>
+								</li>
 							</ul>
 						</div>
+						<div class="add-popup-btn blue-btn" onclick="makeChoise()">선택지 추가</div>
 					</div>
 					
 					<div class="pmaker_item">
 						<h4>정답:</h4>
-						<input class="custom-input sp-items" type="text" />
-						<div class="pmaker_answer_cbox mp-items">
-							<fieldset>
+						<div class="popup-input-wrap sp-items">
+							<input oninput="syncValueLength(this)" maxlength="30" name="spanswer" class="custom-input" type="text" />
+							<p class="input-label"><span class="input-label-count">0</span>/30</p>
+						</div>
+						
+						<div id="mp-answer" class="pmaker_answer_cbox mp-items">
+							<fieldset id="answer-field">
 								<legend>정답</legend>
-								<div style="align-self: center;">
-									<input id="answer-ratio" type="radio" name="answer" value="1"
-										checked /> <label for="answer-ratio"> <span
-										class="round">라디오버튼</span> 1
-									</label>
+								<div class="answer-item">
+									<input id="answer-ratio" type="radio" name="answer" value="1"/>
+									<label for="answer-ratio"><span class="answer-ratio-text">1</span><span class="round"></span></label>
 								</div>
-
-								<div style="align-self: center;" class="cbox-shifter"></div>
-
-								<div style="align-self: center;">
+								
+								<div class="answer-item">
 									<input id="answer-ratio2" type="radio" name="answer" value="2" />
-									<label for="answer-ratio2"> <span class="round">라디오버튼</span>
-										2
-									</label>
+									<label for="answer-ratio2"><span class="answer-ratio-text">2</span><span class="round"></span></label>
 								</div>
 							</fieldset>
 						</div>
@@ -182,7 +169,10 @@
 
 					<div class="pmaker_item">
 						<h4>해설:</h4>
-						<textarea rows="3" class="custom-input"></textarea>
+						<div class="popup-input-wrap">
+							<textarea maxlength="1000" name="desc" rows="3" class="custom-input"></textarea>
+							<p class="input-label"><span class="input-label-count">0</span>/1000</p>
+						</div>
 					</div>
 
 				</div>
@@ -193,33 +183,28 @@
 					</h2>
 					<div class="problem_preview">
 
-						<p class="problem_content">1. 다음 글의 상황에 나타난 분위기로 가장 적절한 것은?</p>
+						<p id="precontent" class="problem_content"></p>
 
+						
 						<div class="problem_print">
-							<pre>
-At dinner I sat between my grandmother and Aunt Gloria. My grandmother, 
-a thin, nervous woman who seldom spoke when my grandfather was present,
-concentrated during the meal on cutting her ham into small perfect triangles
-before she ate them. Whenever she passed a dish to me, she asked quietly,
-“Do you like this, David?” and her questions seemed so eager and pathetic 
-that I said yes to everything. As a result, my plate was 
-piled high with sweet potatoes and cooked carrots and sliced tomatoes
-and cottage cheese and kidney beans and corn bread and ham.
-And I had no appetite.
-*pathetic 애처로운
-                            </pre>
+							<div id="preprintfile" class="preview-printfile"></div>
+							<p id="preprint">
+                            </p>
 						</div>
 
-						<ul class="problem_answer_list mp-items">
-							<li>happy and lively</li>
-							<li>busy and urgent</li>
+						<ul id="pre-answer-list" class="problem_answer_list mp-items">
+							<li>
+							</li>
+							
+							<li>
+							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 
 			<div class="add_popup_btnlist">
-				<div class="add-popup-btn blue-btn">등록</div>
+				<div id="problem-regbtn" class="add-popup-btn blue-btn">등록</div>
 				<div id="add-popup-close" class="add-popup-btn red-btn">닫기</div>
 			</div>
 
@@ -247,102 +232,859 @@ And I had no appetite.
 			bUseModeChanger : false
 		}
 	});
+	
 	</script>
 	<!-- se2 end -->
 
 	<script type="text/javascript">
 	
-	/* plist Drag And Drop */
-		let plist = document.querySelector("#plist-body");
+	/*
+	todolist:
+		게시하기 ajax로 데이터 정리해서 서버에 보낸뒤
 		
-		let picked = null;
-		let pickedIndex = null;
-		
-		plist.addEventListener("dragstart",(e)=>{
-			let obj = e.target;
-			
-			picked = e.target;
-			pickedIndex = [...obj.parentNode.children].indexOf(obj);
-			picked.classList.add("picked-item");
-		});
-		
-		plist.addEventListener("dragover",(e)=>{
-			e.preventDefault();
-		});
-		
-		plist.addEventListener("drop",(e)=>{
-			picked.classList.remove("picked-item");
-			if(picked.getAttribute("draggable") != "true") return;
-			
-			let el = e.target.parentNode;
-			if(el.tagName != "TR" || !el.classList.contains("putable")) return;
-			
-			let index = [...(el.parentNode.children)].indexOf(el);
-			
-			(index > pickedIndex) ? el.after(picked) : el.before(picked)
-		});
-		
-	/* plist Drag And Drop end. */
+*/
+
+//■■■■■■■■■■■■■■■■■■■■initialized■■■■■■■■■■■■■■■■■■■■
+const editorform = document.getElementById("editorform");
+let addform = document.getElementById("add_popup_form");
+
+
+/* plist 현재 작성중인 게시글에서 문제list 변수 초기화*/
+// write가 아닌 edit일때는 데이터를 받아와서 동기화처리 해야함.
+let problemList = [
 	
-	/* plist-add-btn */
-	let plistAddBtn = document.getElementById("plist-add-btn");
-	let plistAddPopup = document.getElementById("add_popup");
-	plistAddBtn.addEventListener("click", ()=>{
-		document.body.style.overflow = "hidden";
-		plistAddPopup.style.display = "block";
+];
+
+/* 문제추가 폼에서 보여지는 문제 인덱스 초기화 */
+let curIndex = problemList.length;
+//문제가 수정모드인지 추가모드인지 flag
+let isEdit = false;
+
+/* 로직에서 자주 접근해야하는 html 요소들을 변수에 담아둠  무의식적으로 let 썼는데 const스는게 맞는거같다 근데 
+ * 굳이 귀찮게 수정은 안할거다 ㅋ 담부턴 const를 쓰자..,,
+ */
+let answerList = document.getElementById("pmaker_answer_list");
+let answerField = document.getElementById("answer-field");
+let plistBody = document.getElementById("plist-body");
+const problemRegbtn = document.getElementById("problem-regbtn");
+
+
+/* preview */
+let preContent = document.getElementById("precontent");
+let prePrint = document.getElementById("preprint");
+let prePrintFile = document.getElementById("preprintfile");
+let preAnswerList = document.getElementById("pre-answer-list");
+
+
+
+//problemList배열에 문제객체를 만들어 push 할 예정
+syncProblemList();
+
+//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+
+
+
+
+
+
+
+/*■■■■■■■■■■■■■■■■■■■■UI EVENT HANDLER■■■■■■■■■■■■■■■■■■■■*/
+/*========================게시하기 버튼==========================  */
+
+
+
+$("#writebtn").on("click",()=>{
+	const formData = new FormData();
+	
+	const problemData = problemList.map(({choise,printfile, ...rest})=>rest);
+	
+	const sendData = {
+		pboard:{
+			memberId:"park", // todo 세션에서 멤버아이디
+			pboardCate:1, // todo pboardCate 만들고나서 추가
+			title:editorform.title.value,
+			content:se2_getIR()
+		},
+		problem:problemData
+	};
+	
+	const printfileData = problemList.map(obj=>{
+		return {printfile: obj.printfile};
 	});
-	/* plist-add-btn end. */
 	
-	/* add-popup-close */
-	let addPopupCloseBtn = document.getElementById("add-popup-close");
-	addPopupCloseBtn.addEventListener("click", ()=>{
-		document.body.style.overflow = "auto";
-		plistAddPopup.style.display = "none";
-	});
-	/* add-popup-close end. */
+	formData.append("sendData", new Blob([JSON.stringify(sendData),{type:"application/json"}]));
+	
+	printfileData.forEach((f)=>{
+		formData.append("printfile", f.printfile);
+	})
 	
 	
-	/* =================================================== */
 	
-	/* add_popup_form */
-	let addform = document.getElementById("add_popup_form");
-	typeCheck();
-	
-	addform.addEventListener('change', function(){
-		typeCheck();
-	});
-	
-	
-	/* plist */
-	let problemList = [
+	//ajax post
+	$.ajax({
+		type:"post",
+		url:'/pboard/write',
+		data:formData,
+		contentType: false,
+      	processData: false,
+      	cache: false,
+      	enctype: 'multipart/form-data',
 		
-	];
+	});//ajax end
+});//on end
+
+
+/*============팝업에서 문제 등록버튼 ==================================*/
+$(problemRegbtn).on("click", ()=>{
+	//init
+	let choise = null;
+	let answer = "";
 	
-	
-	/* func */
-	function makeProblem(type,content,print,printfile,choise,answer,desc){
-		let p = {};
-		p.type=type;
-		p.content=content;
-		p.print = print;
-		p.printfile = printfile;
-		p.choise = choise;
-		p.answer = answer;
-		p.desc = desc;
+	//type에 따라 분기처리
+	if(addform.type.value=="m"){
+		let choiseCount = answerList.childElementCount;
 		
-		problemList.push(p);
+		choise = [];
+		for(let i=0; i<choiseCount; i++){
+			let choiseText = addform.choise[i].value;
+			choise.push(choiseText);
+		}
+		
+		answer = addform.answer.value;
+	}else{
+		answer = addform.spanswer.value;
 	}
 	
-	function typeCheck(){
-		if(addform.type.value=="m"){
-			$(".mp-items").css('display','block');
-			$(".sp-items").css('display','none');
-		}else{
-			$(".mp-items").css('display','none');
-			$(".sp-items").css('display','block');
+	//문제객체 문제리스트에 push
+	let isPass = makeProblem(
+		addform.type.value,
+		addform.content.value,
+		addform.print.value,
+		addform.printfile.files[0],
+		choise,
+		answer,
+		addform.desc.value
+	);
+	/* close form */
+	
+	if(isPass){
+		closeAddForm();
+	}
+});
+
+
+/*===============plist-add-btn (게시글 작성시 문제 추가 버튼)=================*/
+let plistAddBtn = document.getElementById("plist-add-btn");
+let plistAddPopup = document.getElementById("add_popup");
+plistAddBtn.addEventListener("click", ()=>{
+	currentProblem = {};
+	resetForm();
+	
+	/* open form */
+	//edit모드를 add모드로 초기화 따로 함수로 빼고싶은데 귀찮타ㅣ;
+	isEdit = false;
+	curIndex = problemList.length;
+	
+	openAddForm();
+});
+/* plist-add-btn end. */
+
+/* add-popup-close (문제 추가 팝업 닫기 버튼)*/
+let addPopupCloseBtn = document.getElementById("add-popup-close");
+addPopupCloseBtn.addEventListener("click", ()=>{
+	Swal.fire({
+	      title: "정말 닫으시겠습니까?",
+	      text: "수정중인 문제는 저장되지 않습니다.",
+	      icon: 'warning',
+	      showCancelButton: true,
+	      confirmButtonColor: '#d33',
+	      cancelButtonColor: '#3085d6',
+	      confirmButtonText: '닫기',
+	      cancelButtonText: '취소',
+	      
+	    }).then((result) => {
+	      if (result.isConfirmed) {
+	    	  closeAddForm();
+	      }
+	    })
+	
+});
+
+
+/*===============plist Drag And Drop (문제리스트 드래그드롭 관련)===============*/
+//문제 목록 table의 tbody
+let plist = document.querySelector("#plist-body");
+
+//드래그 할때 집은 객체 변수 초기화
+let picked = null;
+
+//집은 객체의 index
+let pickedIndex = null;
+
+//드래그 시작할떄 이벤트핸들
+plist.addEventListener("dragstart",(e)=>{
+	let obj = e.target;
+	
+	picked = e.target;
+	pickedIndex = [...obj.parentNode.children].indexOf(obj);
+	picked.classList.add("picked-item");
+});
+
+//드래그 over 
+plist.addEventListener("dragover",(e)=>{
+	e.preventDefault();
+});
+
+//드래그 drop 했을때 
+plist.addEventListener("drop",(e)=>{
+	picked.classList.remove("picked-item");
+	if(picked.getAttribute("draggable") != "true") return;
+	
+	let el = e.target.parentNode;
+	if(el.tagName != "TR" || !el.classList.contains("putable")) return;
+	
+	let index = [...(el.parentNode.children)].indexOf(el);
+	
+	changeArrObj(problemList,pickedIndex,index);
+	syncProblemList();
+	
+	
+/* 	let index = [...(el.parentNode.children)].indexOf(el);
+	
+	(index > pickedIndex) ? el.after(picked) : el.before(picked)*/
+});
+
+//드래그 끝났을때
+plist.addEventListener("dragend",(e)=>{
+	picked.classList.remove("picked-item");
+	picked = null; //picked 초기화
+	pickedIndex = null; //pickedindex 초기화
+});
+
+/*============== ptype radio (문제추가 팝업의종류 라디오 버튼 )====================*/
+addform.addEventListener('change', function(){
+	typeCheck();
+});
+/* ptype radio end*/
+
+/* pcontent input (문제 내용 인풋)*/
+$(addform.content).on("input", function(){
+	if(!syncValueLength(this)) return;
+	preContent.textContent = this.value;
+});
+/* pcontent input end */
+
+/* pprint input (지문 인풋)*/
+$(addform.print).on("input", function(){
+	if(!syncValueLength(this)) return;
+	prePrint.textContent = this.value;
+});
+
+/* pcontent desc (해설 인풋)*/
+$(addform.desc).on("input", function(){
+	if(!syncValueLength(this)) return;
+});
+
+
+/* printfile input */
+$(addform.printfile).on("input" , function(){
+	printFIleChange(this);
+});
+
+//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+
+
+
+
+/*■■■■■■■■■■■■■■■■■■■■ FUNCTION ■■■■■■■■■■■■■■■■■■■■*/
+  
+//smartEditor2 내용가져오기
+function se2_getIR(){
+	return oEditors.getById["se2"].getIR();
+}
+
+//문제 등록,수정시 required체크
+function checkRequire(){
+	let isChecked = true;
+	let alert = "";
+	if(addform.type.value =="s"){
+		if(!addform.content.value){
+			alert += "문제내용";
+			isChecked = false;
+		}
+		if(!addform.spanswer.value){
+			if(alert.length>0){
+				alert+=" , ";
+			}
+			alert += "정답";
+			isChecked = false;
+		}
+	}else{
+		let choiseList = document.querySelectorAll("input[name='choise']");
+		choiseList.forEach((e,idx)=>{
+			if(!e.value){
+				if(alert.length>0){
+					alert+=" , ";
+				}
+				alert += (idx+1)+"번 선택지";
+				
+				isChecked = false;
+				return true;
+			}
+		});
+		
+		if(!addform.answer.value){
+			if(alert.length>0){
+				alert+=" , ";
+			}
+			alert += "정답";
+			isChecked = false;
 		}
 	}
-	/* func end */
+	
+	if(isChecked){
+		return true;
+	}
+	
+	alert+= "을 입력해주세요.";
+	
+	Swal.fire({
+	      icon: 'error',
+	      title: "입력해주세요.",
+	      text: alert,
+	      confirmButtonColor: '#3085d6',
+  	  confirmButtonText: '닫기',
+  	});
+	
+	return false;
+}
+
+//openModel
+function openAddForm(){
+	document.body.style.overflow = "hidden";
+	plistAddPopup.style.display = "block";
+	
+	problemRegbtn.textContent = isEdit? "수정":"등록";
+	
+	typeCheck();
+}
+//closeModal
+function closeAddForm(){
+	//혹시모르니까 닫을때도 flag컨트롤
+	isEdit = false;
+	document.body.style.overflow = "auto";
+	plistAddPopup.style.display = "none";
+}
+
+//printFile Change Event
+function printFIleChange(el){
+	
+	if(!el.value){
+		resetPrintFile();
+		return false;
+	}
+	
+	if(!ImageFileCheck(el)){
+		Swal.fire({
+		      icon: 'error',
+		      title: '이미지 파일이 아닙니다.',
+		      confirmButtonColor: '#3085d6',
+	    	  confirmButtonText: '닫기',
+	    });
+		$(el).val(null);
+		resetPrintFile();
+		return false;
+	}
+	
+	showPrintFile(URL.createObjectURL(el.files[0]));	
+	return true;
+}
+
+//printfile reset
+function resetPrintFile(){
+	$(prePrintFile).children().remove();
+	prePrintFile.style.display = "none";
+}
+//printfile show image
+function showPrintFile(src){
+	$(prePrintFile).empty();
+	const image = document.createElement("img");
+	image.src = src;
+	/* image.addEventListener("click",function(){
+		window.open(this.src);
+	}); */
+	prePrintFile.appendChild(image);
+	prePrintFile.style.display = "block";
+}
+
+//============add form 리셋=============================
+function resetForm(){
+    //type reset 문제타입 주관식으로 기본값설정
+    addform.type.value = "s";
+
+    //content reset 문제 내용 초기화
+    addform.content.value = "";
+    $(addform.content).trigger("input");
+    
+    //print reset 지문 초기화
+    addform.print.value="";
+    $(addform.print).trigger("input");
+    
+  	//mpanswer reset 주관식 정답 초기화
+    addform.spanswer.value="";
+    $(addform.spanswer).trigger("input");
+    
+    //answerList reset 문항리스트 초기화
+    $(answerList).children().slice(2,5).remove();
+    let choiseInputs = $("input[name='choise']");
+    choiseInputs.val("");
+    choiseInputs.trigger("input");
+    
+    //printfile reset 지문파일 초기화
+    $("input[name='printfile']").val(null);
+    resetPrintFile();
+    
+  	//spanswer reset 주관식 정답인풋 초기화
+    addform.spanswer.value = "";
+    
+  	//answer radio reset 정답라디오박스 초기화
+    addform.answer.value = null;
+    /* slice 레전드를 고려해서 매개변수 +1씩 */
+    $(answerField).children().slice(3,6).remove();
+
+    //desc reset 
+    addform.desc.value = "";
+    
+    /* preview Reset */
+    preContent.textContent = "";
+    prePrint.textContent = "";
+    
+    let preAnswerListchildren = $(preAnswerList).children();
+    preAnswerListchildren.slice(0,3).text("");
+    preAnswerListchildren.slice(2,5).remove();
+}
+
+//=========plist 객체와 테이블 싱크맞추기===================
+function syncProblemList(){
+	$(plistBody).empty();
+
+    problemList.forEach((pro , i)=>{
+		let tr = document.createElement("tr");
+		tr.classList.add("putable");
+		tr.setAttribute("draggable","true");
+
+		let noTd = document.createElement("td");
+		noTd.classList.add("plist-item-no");
+		noTd.classList.add("plist-right-border");
+		noTd.textContent=i+1;
+
+		let typeTd = document.createElement("td");
+		typeTd.classList.add("plist-item-no");
+		typeTd.classList.add("plist-right-border");
+		typeTd.textContent= pro.type=="s" ? '주관식' : '객관식';
+
+		let content = document.createElement("td");
+		content.classList.add("plist-item-content");
+		content.classList.add("plist-right-border");
+		content.textContent=pro.content;
+
+		let btnTd = document.createElement("td");
+		btnTd.classList.add("plist-item-no");
+		btnTd.classList.add("plist-btntd");
+		
+		let editBtn = document.createElement("i");
+		editBtn.classList.add("fa-solid");
+		editBtn.classList.add("fa-pen-to-square");
+		editBtn.classList.add("plist-edit-btn");
+		editBtn.addEventListener("click", ()=>{
+			problemEdit(editBtn);
+		});
+		
+		let delBtn = document.createElement("i");
+		delBtn.classList.add("fa-sharp");
+		delBtn.classList.add("fa-solid");
+		delBtn.classList.add("fa-trash");
+		delBtn.classList.add("plist-delete-btn");
+		delBtn.addEventListener("click",()=>{
+			plistDeleteAction(delBtn);
+		});
+		
+		btnTd.appendChild(editBtn);
+		btnTd.appendChild(delBtn);
+
+		tr.appendChild(noTd);
+		tr.appendChild(typeTd);
+		tr.appendChild(content);
+		tr.appendChild(btnTd);
+		
+		plistBody.appendChild(tr);
+	});
+}
+
+
+//============문제 수정시currentproblem -> addform 동기화하고 열기===================
+function problemEdit(el){
+	let count = 0;
+	let parentTr = el.parentElement;
+	while(parentTr.tagName != "TR"){
+		parentTr = parentTr.parentElement;
+		count++;
+		if(count > 10) return;
+	}
+	let idx = $(parentTr).index();
+	
+	//isEdit flag값을 true로
+	isEdit = true;
+	//curIndex를 맞춰줌.
+	curIndex = idx;
+	
+	resetForm();
+	
+	let current = problemList[idx];
+	
+	//타입별 분기처리를 위해 캐싱
+	let ptype = current.type;
+	
+	//타입 동기화
+	addform.type.value = ptype;
+	
+	//문제 내용 동기화
+	addform.content.value = current.content;
+	$(addform.content).trigger("input");
+	
+	//지문 동기화
+	addform.print.value = current.print;
+	$(addform.print).trigger("input");
+	
+	//지문 파일 동기화
+	if(current.printfile){//지문 파일이 존재하는경우 
+		const dt = new DataTransfer();
+		dt.items.add(current.printfile);
+		addform.printfile.files = dt.files
+	}
+	$(addform.printfile).trigger("input");
+	
+	//해설 동기화
+	addform.desc.value = current.desc;
+	$(addform.desc).trigger("input");
+	
+	//ptype에 따라 분기, 선택지(객관식) 정답 동기화
+	if(ptype=="s"){
+		addform.spanswer.value = current.answer;
+		$(addform.spanswer).trigger("input");
+	}else{
+		let choise = current.choise;
+		let diff = choise.length - 2;
+		for(let i = 0; i<diff; i++){
+			makeChoise();
+		}
+		
+		
+		/*let input = [...document.querySelectorAll("input")].filter(({name})=>{
+			return name==="choise";
+		}); */
+		
+		choise.forEach((c,idx)=>{
+			let input = $('input[name="choise"]').eq(idx);
+			//input[idx].value=c;
+			//syncChoise(input[idx]);
+			input.val(c);
+			//syncChoise(test);
+			input.trigger("input");
+		});
+		
+		addform.answer.value = current.answer;
+	}
+
+	openAddForm();
+	
+}
+
+
+
+//===========객관식문제 선택지 만들기================================
+function makeChoise(){
+	if(answerList.childElementCount >= 5){
+		Swal.fire({
+		      icon: 'info',
+		      title: '최대 갯수 초과',
+		      text: '최대 갯수는 5개 입니다.',
+		      confirmButtonColor: '#3085d6',
+	    	  confirmButtonText: '닫기',
+	    });
+		return;
+	}
+	
+	
+    let li = document.createElement("li");
+    
+    let answerWrap = document.createElement("div");
+    answerWrap.classList.add("answer-wrap");
+
+    
+    let inputDiv = document.createElement("div");
+    inputDiv.classList.add("popup-input-wrap");
+    let customInput = document.createElement("input");
+    customInput.setAttribute("type","text");
+    customInput.setAttribute("name","choise");
+    customInput.setAttribute("maxlength","200");
+    customInput.classList.add("custom-input");
+    
+    let inputLabel = document.createElement("p");
+    inputLabel.classList.add("input-label");
+    inputLabel.textContent = "0/200";
+    
+    inputDiv.appendChild(customInput);
+    inputDiv.appendChild(inputLabel);
+    
+    let deleteBtn = document.createElement("div");
+    deleteBtn.classList.add("answer-delete-btn");
+    
+
+    let deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("fa-solid");
+    deleteIcon.classList.add("fa-delete-left");
+
+    deleteBtn.appendChild(deleteIcon);
+    answerWrap.appendChild(inputDiv);
+    answerWrap.appendChild(deleteBtn);
+    
+    li.appendChild(answerWrap);
+    
+    answerList.appendChild(li);
+    
+    $(customInput).on("input",()=>{
+    	syncChoise(customInput)
+    });
+    //customInput.addEventListener("input",()=>{syncChoise(customInput)});
+    //customInput.addEventListener("input",function(){syncChoise(this)});
+    deleteBtn.addEventListener("click",()=>{deleteChoise(deleteBtn)});
+    
+    /* 정답 선택 라디오박스 만들기 */
+    makeAnswerRadio();
+    
+    /* 프리뷰 li만들기 */
+    let preli = document.createElement("li");
+    preAnswerList.appendChild(preli);
+    
+}
+
+//문제 선택지 정답 라디오 버튼 만들기(?)
+function makeAnswerRadio(){
+    let answerInputList = document.querySelectorAll('input[name="answer"]');
+    let inputVal = answerInputList.length+1;
+
+    let answerItem = document.createElement("div");
+    answerItem.classList.add("answer-item");
+
+    let answerInput = document.createElement("input");
+    answerInput.setAttribute("type","radio");
+    answerInput.setAttribute("name","answer");
+    answerInput.setAttribute("value",inputVal);
+    answerInput.id = "answer-ratio"+inputVal;
+
+    let label = document.createElement("label");
+    label.setAttribute("for","answer-ratio"+inputVal);
+    
+    let labelSpan = document.createElement("span");
+    labelSpan.classList.add("answer-ratio-text");
+    
+    labelSpan.textContent = inputVal;
+    let span = document.createElement("span");
+    span.classList.add("round");
+
+    label.appendChild(labelSpan);
+    label.appendChild(span);
+
+    answerItem.appendChild(answerInput);
+    answerItem.appendChild(label);
+	
+    answerField.appendChild(answerItem);
+}
+
+// 객관식문제 선택지 지우기
+function deleteChoise(el){
+	let parentLi = el.parentElement.parentElement;
+	let count = 0;
+	while(parentLi.tagName != "LI"){
+		parentLi = parentLi.parentElement;
+		count++;
+		if(count > 10) return;
+	}
+	let index = $(parentLi).index()+1;
+	$(parentLi).remove();
+	
+	
+	/* 정답 선택지 지우기 */
+	for(let i = index+1; i<=5; i++){
+		let tg = $(`input[name='answer'][value=${i}]`);
+		tg.val(i-1);
+		tg.attr('id','answer-ratio'+(i-1));
+		
+		let labelfor = "answer-ratio"+i;
+		
+		let label = $(`label[for=${labelfor}]`);
+		label.attr('for', 'answer-ratio'+(i-1));
+		label.find('.answer-ratio-text').text(i-1);
+
+	}
+	
+	/* 프리뷰 li 지우기 */
+	$(preAnswerList).children().eq(index-1).remove();
+			
+	// 인풋박스 지우기
+	$("#answer-ratio"+index).parent().remove();
+}
+
+
+// 객관식문제 내용 preview 동기화
+// 동적으로 생성되는 요소에 이벤트리스너를 달아줘야하므로 펑션으로 정의해둠.
+function syncChoise(el){
+	if(!syncValueLength(el)) return;
+	let count = 0;
+	let parentLi = el.parentElement;
+	while(parentLi.tagName != "LI"){
+		parentLi = parentLi.parentElement;
+		count++;
+		if(count > 10) return;
+	}
+	let index = $(parentLi).index();
+	preAnswerList.children[index].textContent = el.value;
+	
+}
+
+// 문제 객체 만들어서 문제리스트에 push
+function makeProblem(type,content,print,printfile,choise,answer,desc){
+	
+	let p = {};
+	p.type=type;
+	p.content=content;
+	p.print = print;
+	p.printfile = printfile;
+	p.choise = choise;
+	p.answer = answer;
+	p.desc = desc;
+	
+	if(!checkRequire()){
+		return false;
+	}
+	
+	if(!isEdit){//문제 추가의 경우 push
+		problemList.push(p);
+	}else{//문제 수정의 경우
+		editArrObj(problemList,curIndex,p);
+	}
+	syncProblemList();
+	
+	return true;
+}
+
+
+// 문제 타입체크해서 html 조정
+function typeCheck(){
+	if(addform.type.value=="m"){
+		$(".mp-items").css('display','block');
+		$(".sp-items").css('display','none');
+	}else{
+		$(".mp-items").css('display','none');
+		$(".sp-items").css('display','block');
+	}
+}
+
+//input-label에 글자수 로직, 편의상 따로 뻄
+function syncValueLength(el){
+	//인풋 태그에서 maxlength 속성을 빼온다.
+	let maxlen = parseInt(el.getAttribute("maxlength"));
+	
+	//인풋태그의 글자 길이를 빼온다
+	let len = el.value.length;
+	
+	// maxlength 속성에 의해 글자수제한이 될테니 굳이 value에서 빼는작업은 없고
+	// 다음 로직 흐름을 제어하기 위해서 false리턴
+	if(el.value.length > maxlen){
+		return false;
+	}
+	//label에 글자수 출력.
+	let test = $(el).next();
+	
+	$(el).next().text(len+"/"+maxlen);
+	return true;
+	//사용할떄는 반환값을 체크해서 흐름제어
+}
+
+//plist delete btn onclick event
+function plistDeleteAction(el){
+	
+	let count = 0;
+	let parentTr = el.parentElement;
+	while(parentTr.tagName != "TR"){
+		parentTr = parentTr.parentElement;
+		count++;
+		if(count > 10) return;
+	}
+	let index = $(parentTr).index();
+	
+	Swal.fire({
+	      title: (index+1)+"번 문제",
+	      text: "해당 문제를 삭제하시겠습니까?",
+	      icon: 'warning',
+	      showCancelButton: true,
+	      confirmButtonColor: '#d33',
+	      cancelButtonColor: '#3085d6',
+	      confirmButtonText: '삭제',
+	      cancelButtonText: '취소',
+	      
+	    }).then((result) => {
+	      if (result.isConfirmed) {
+    	    problemList.splice(index,1);
+    		syncProblemList();
+	        Swal.fire({
+	          title:'문제 삭제 완료.',
+	          text:'',
+	          icon:'success',
+	          confirmButtonText: '확인',
+	          confirmButtonColor: '#3085d6'
+	        })
+	      }
+	    })
+	
+}
+
+
+/*================= UTIL FUNC============== 
+	다른데서도 쓸거같으니까, 파일단위로 나중에 빼더라도 일단 구분 */
+
+//배열 순서 바꾸기 
+function changeArrObj(arr,idx,idx2){
+	/* let temp = arr[idx];
+	arr[idx] = arr[idx2];
+	arr[idx2] = temp; */
+	
+	//구조분해 할당 ㅋㅋㅋ js문법 너무 어렵다.. 그냥
+	[arr[idx],arr[idx2]]=[arr[idx2],arr[idx]];
+}
+//배열 특정인덱스요소 바꿔치기
+function editArrObj(arr,idx,obj){
+	[arr[idx]] = [obj];
+}
+
+//이미지 파일인지 체크
+function ImageFileCheck({value}){
+	const index = value.lastIndexOf('.');
+	const type = value.substring(index+1,value.length).toLowerCase();
+	
+	if(type=='jpg'||type=='gif'||type=='png'||type=='jpeg'||type=='bmp'){
+		return true;
+	}else{
+		return false;
+	}
+	
+	
+}
+
+/* =================================================== */
 	</script>
 </body>
 </html>

@@ -1,7 +1,9 @@
 package com.multi.quizwiki.service;
 
-import com.multi.quizwiki.dto.PboardDTO;
+import com.multi.quizwiki.entity.pboard.PboardEntity;
+import com.multi.quizwiki.entity.problem.ProblemChoiseEntity;
+import com.multi.quizwiki.entity.problem.ProblemEntity;
 
 public interface PboardService {
-	public int insert(PboardDTO pboard);
+	public void insert(PboardEntity pboard,ProblemEntity problem, ProblemChoiseEntity problemChoise);
 }
