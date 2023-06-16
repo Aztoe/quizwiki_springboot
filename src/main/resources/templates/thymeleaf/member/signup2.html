@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz Wiki 회원가입</title>
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <!-- 대학생용 회원가입 양식 -->
 
 <!-- 우편번호 -->
@@ -38,37 +39,125 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 
-
 <script type="text/javascript">
-//아이디 찾기
-/* function findId_click() {
-	var name = $('#name').val()
-	var telnum = $('#telnum').val()
-
-	$.ajax({
-		url : "/findId",
-		type : "POST",
-		data : {
-			"name" : name,
-			"telnum" : telnum
-		},
-		success : function(data) {
-			if (data == 0) {
-				alert('회원정보를 확인해주세요');
-				$('#name').val('');
-				$('#telnum').val('');
-			} else {
-				alert('인증에 성공하였습니다');
-				$('#name').val('');
-				$('#telnum').val('');
-
+$(document).ready(function() {
+	
+	$("#member_id_btn").on("click", function() {
+		$.ajax({
+			url : "/idChk",
+			type : "post",
+			dataType : "json",
+			data : {
+				"member_id" : $("#member_id").val()
+			},
+			success : function(data) {
+				if (data == 1) {
+					alert("중복된 아이디입니다.");
+					disableSignUpButton();
+				} else if (data == 0) {
+					alert("사용가능한 아이디입니다.");
+					enableSignUpButton();
+				}
 			}
-		},
-		error : function() {
-			alert("error");
-		}
+
+		});
 	});
-}; */
+	
+	function disableSignUpButton() {
+        $("#signup").prop("disabled", true); // 회원가입 버튼 비활성화
+    }
+
+    function enableSignUpButton() {
+        $("#signup").prop("disabled", false); // 회원가입 버튼 활성화
+    }
+	
+	let status = false;
+	let univ_check = false;
+	
+	//대학명 인증 
+	$("#universityName_btn").on("click", function() {
+		var universityName = $("#universityName").val();
+		
+		let univNameData = {
+			"univName" : universityName
+		}
+			
+		$.ajax({
+			url : "https://univcert.com/api/v1/check",
+			type : "post",
+			data : JSON.stringify(univNameData),
+			contentType : "application/json",
+			success : function(data) {
+				console.log(data);
+				if (data.success) {
+					status = true;
+					univ_check = data.success;
+					alert("인증 가능 학교");
+				} else {
+					status = false;
+					alert("인증 불가능 학교");
+				}
+			},
+			error : function(data) {
+				alert("error");
+			}
+			})
+		})
+		
+		// 이메일 인증
+		$("#email_btn").on("click", function() {
+			
+			var API_KEY = "b7026b59-2d05-4165-be01-de304e8c76ae";
+			var email = $("#email").val();
+			var universityName = $("#universityName").val();
+			
+			if (status) {
+				/* let univEmailData = {
+					"API_KEY":API_KEY,
+					"email" : email,
+					"universityName" : universityName,
+					"univ_check":true
+				}; */
+				let univEmailData = {
+						"email" : email,
+						"universityName" : universityName
+				}
+			 	/* $.ajax({
+					url:"https://univcert.com/api/v1/certify",
+					type:"post",
+					data:univEmailData,
+					contentType:"application/json",
+					success:function(data){
+						if(data.success){
+							alert(universityName + "의 " + email+ "로 인증번호를 발송하였습니다.");
+						}else{
+							alert("이메일 발송에 실패하였습니다.");
+						}
+							
+					}
+				}) */
+			 $.ajax({
+					url:"univcert.com/api/v1/certify",
+					type:"get",
+					data:univEmailData,
+					//contentType:"application/json",
+					success:function(data){
+						console.log(data);
+						if(data.success){
+							alert(universityName + "의 " + email+ "로 인증번호를 발송하였습니다.");
+						}else{
+							alert("이메일 발송에 실패하였습니다.");
+						}
+							
+					}//end success
+				})//end ajax 
+			} else {
+				alert("학교 인증을 먼저 하시길 바랍니다.");
+			}
+		})
+		
+});
+
 </script>
 
 </head>
@@ -138,7 +227,19 @@
 						</div>
 					</div>
 
-					<!-- 학교정보 받아올 수 있게 되면 추가하기.. -->
+					<!-- 학교정보 -->
+					<div class="row">
+						<div class="col-md-8 mb-2">
+							<label for="universityName">대학교</label> <input type="text"
+								class="form-control" id="universityName" placeholder="OO대학교"
+								required>
+							<div class="invalid-feedback">학교를 입력해주세요.</div>
+						</div>
+						<div class="col-md-1.5 mb-2 div_btn">
+							<input type="button" id="universityName_btn" class="code_num_btn"
+								onclick="" value="학교 정보 확인">
+						</div>
+					</div>
 
 					<div class="row">
 						<div class="col-md-11 mb-3">
@@ -147,10 +248,8 @@
 								<option value=""></option>
 								<option>1학년</option>
 								<option>2학년</option>
-								<option>3학년
-									</opton>
-								<option>4학년
-									</opton>
+								<option>3학년</option>
+								<option>4학년</option>
 							</select>
 							<div class="invalid-feedback">학년을 선택해주세요.</div>
 						</div>
@@ -158,41 +257,30 @@
 
 					<!-- 학과 정보 받아올 수 있게 되면 추가하기.. -->
 
-					<!-- <div class="row">
-						<div class="col-md-11 mb-3">
-							<label for="major">전공</label> 
-							<select class="custom-select d-block w-100" id="major" required>
-								<option value=""></option>
-								<option>통합</option>
-								<option>문과</option>
-								<option>이과</opton>
-							</select>
-							<div class="invalid-feedback">과를 선택해주세요.</div>
-						</div>
-					</div> -->
+
 
 					<div class="row">
 						<div class="col-md-8 mb-2">
-							<label for="email">이메일</label> <input type="email"
-								class="form-control" id="email" placeholder="quizwiki@naver.com"
-								required>
+							<label for="email">학교 이메일</label> <input type="email"
+								class="form-control" id="email"
+								placeholder="quizwiki@kyonggi.ac.kr" required>
 							<div class="invalid-feedback">이메일을 입력해주세요.</div>
 						</div>
-						<div class="col-md-1.5 mb-2 div_btn" id="">
-							<input type="button" id="" class="code_num_btn" onclick=""
-								value="인증번호 발송">
+						<div class="col-md-1.5 mb-2 div_btn">
+							<input type="button" id="email_btn" class="code_num_btn"
+								onclick="" value="인증번호 발송">
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-8 mb-2">
 							<label for="sample4_postcode">인증번호</label> <input type="text"
-								class="form-control" id="telnum_check" placeholder="6자리 숫자 입력"
+								class="form-control" id="email_check" placeholder="4자리 숫자 입력"
 								required>
 							<div class="invalid-feedback">인증번호를 확인해주세요.</div>
 						</div>
 						<div class="col-md-1.5 mb-2 div_btn" id="">
-							<input type="button" id="" class="code_num_btn" onclick=""
-								value="인증번호 확인">
+							<input type="button" id="email_check_btn" class="code_num_btn"
+								onclick="" value="인증번호 확인">
 						</div>
 					</div>
 
@@ -204,8 +292,8 @@
 							<div class="invalid-feedback">전화번호를 입력해주세요.</div>
 						</div>
 						<div class="col-md-1.5 mb-2 div_btn" id="div_zipcode_btn">
-							<input type="button" id="zipcode_btn_num" class="code_num_btn"
-								onclick="" value="인증번호 발송">
+							<input type="button" id="tel_btn" class="code_num_btn" onclick=""
+								value="인증번호 발송">
 						</div>
 					</div>
 					<div class="row">
@@ -216,7 +304,7 @@
 							<div class="invalid-feedback">인증번호를 확인해주세요.</div>
 						</div>
 						<div class="col-md-1.5 mb-2 div_btn" id="div_zipcode_btn">
-							<input type="button" id="zipcode_btn_check" class="code_num_btn"
+							<input type="button" id="telnum_check_btn" class="code_num_btn"
 								onclick="" value="인증번호 확인">
 						</div>
 					</div>
@@ -293,8 +381,8 @@
 						</div>
 					</div>
 					<div class="mb-4"></div>
-					<button class="btn btn-primary btn-lg btn-block" type="button"
-						onclick="passcheck_signup()">가입 완료</button>
+					<button class="btn btn-primary btn-lg btn-block" type="button" id="signup"
+						onclick="passcheck_signup()" disabled>가입 완료</button>
 				</form>
 			</div>
 		</div>

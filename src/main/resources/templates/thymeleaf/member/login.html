@@ -14,19 +14,21 @@
 	<div class="login">
 		<div class="login__content">
 			<div class="login__forms">
-				<form action="" class="login__register" id="login-in">
+				<form class="login__register" id="login-in" name="login-in" action="/login.do" method="post">
+					
 					<h1 class="login__title">
 						<a href="/main"> <img src="/images/main/QuizWiki_logo1.jpeg"
 							id="login_title_img">
 						</a>
 					</h1>
+					
 					<div class="login__box">
 						<i class='bx bx-user login__icon'></i> <input type="text"
-							placeholder="아이디" class="login__input">
+							placeholder="아이디" class="login__input" name="member_id">
 					</div>
 					<div class="login__box">
 						<i class='bx bx-lock login__icon'></i> <input type="password"
-							placeholder="패스워드" class="login__input">
+							placeholder="패스워드" class="login__input" name="member_pass">
 					</div>
 
 					<div class="login__forgot_box">
@@ -68,12 +70,13 @@
 							</a>
 						</div>
 					</div>
-					<a href="#" class="login__button">로그인</a>
+					<button class="login__button" type="submit">로그인</button>
 
 					<div>
-						<span class="login__account login__account--account">계정이
-							없으신가요?</span> <span class="login__signin login__signin--signup"
-							id="sign-up"><a href="/signupAgreement">회원가입</a></span>
+						<span class="login__account login__account--account">계정이 없으신가요?</span> 
+						<span class="login__signin login__signin--signup" id="sign-up">
+							<a href="/signupType">회원가입</a>
+						</span>
 					</div>
 				</form>
 			</div>

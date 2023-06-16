@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.multi.quizwiki.member">
+ 	
+ 	<select id="login" resultType="member" parameterType="member">
+		select *
+		from member2	
+		where member_id=#{member_id} and member_pass=#{member_pass}
+	</select>
+	
+	<select id="idcheck" resultType="int">
+		select count(*)
+		from member2 
+		where member_id=#{member_id}
+	</select>
+	
+	<select id="passcheck" resultType="int">
+		select count(*)
+		from member2 
+		where member_id=#{member_id} and member_pass=#{member_pass}
+	</select>
+	
+	<insert id="insert" parameterType="member">
+		insert into member2	values(#{member_id},#{member_pass},#{member_name},#{member_age},#{member_gender},#{email},
+		#{member_telnum},#{member_zipcode},#{member_mkt_opt},#{member_status},sysdate(),#{member_point},
+		#{member_photo},#{member_type},#{member_major},#{universityName})
+	</insert>
+	
+ </mapper>

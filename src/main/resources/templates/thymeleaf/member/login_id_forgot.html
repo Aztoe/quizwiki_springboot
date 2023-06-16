@@ -10,12 +10,43 @@
 <link rel="stylesheet" type="text/css"
 	href="./css/member/login_id_forgot.css" />
 
+<script type="text/javascript">
+//아이디 찾기
+function findId_click() {
+	var name = $('#name').val()
+	var telnum = $('#telnum').val()
+
+	$.ajax({
+		url:"/findId",
+		type:"POST",
+		data:{
+			"name" : name,
+			"telnum" : telnum
+		},
+		success:function(data) {
+			if (data == 0) {
+				alert('회원정보를 확인해주세요');
+				$('#name').val('');
+				$('#telnum').val('');
+			} else {
+				alert('인증에 성공하였습니다');
+				$('#name').val('');
+				$('#telnum').val('');
+				href="/findId";
+
+			}
+		},
+		error:function() {
+			alert("error");
+		}
+	});
+}; 
+</script>
 
 </head>
 
 <body>
-	<script
-		src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+	<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 	<div class="login">
 		<div class="login__content">
 			<div class="login__forms">
@@ -28,12 +59,12 @@
 					<div class="login__box login_id_forgot">아이디 찾기</div>
 					<hr>
 					<div class="login__box login_name">
-						이름 <input type="text" placeholder="" class="login__input">
+						이름 <input type="text" placeholder="" class="login__input" id="name" name="name">
 					</div>
 
 					<div class="row">
 						<div class="login__box login_tel">
-							휴대폰번호 <input type="text" placeholder="-제외 숫자만 입력"
+							휴대폰번호 <input type="text" placeholder="-제외 숫자만 입력" id="telnum" name="telnum"
 								class="login__input">
 						</div>
 
@@ -50,11 +81,11 @@
 						</div>
 
 						<div class="div__check__button">
-							<a href="#" class="login__button check__button">인증번호 확인</a>
+							<a class="login__button check__button">인증번호 확인</a>
 						</div>
 					</div>
 					
-					<a href="/findId" class="login__button">아이디 찾기</a>
+					<a class="login__button" onclick="findId_click()">아이디 찾기</a>
 				</form>
 
 			</div>

@@ -22,9 +22,17 @@ th:fragment="header"
 		</div>
 
 		<div class="util-sub-menu">
-			<a href="/login.do" class="shift-between"> 로그인 </a> <a
-				href="/signupType" class="shift-between"> 회원가입 </a> <a
-				href="/faqt"> 고객센터 </a>
+			<!-- 로그인이 되어있지 않은 경우 -->
+			<th:block th:if="${session.user==null}">
+				<a th:href="@{/login.do}" class="shift-between"> 로그인 </a>
+			</th:block>
+			<!-- 로그인이 되어있는 경우 -->
+			<th:block th:unless="${session.user==null}">
+				<a th:href="@{/logout.do}" class="shift-between"> 로그아웃 </a>
+			</th:block>
+			 
+			<a href="/signupType" class="shift-between"> 회원가입 </a> 
+			<a href="/faqt"> 고객센터 </a>
 		</div>
 	</div>
 	<div class="nav-bar">

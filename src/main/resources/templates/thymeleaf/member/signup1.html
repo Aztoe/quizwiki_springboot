@@ -12,9 +12,9 @@
 <script type="text/javascript"
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<!-- js -->	
+<!-- js -->
 <script type="text/javascript" src="./js/member/zipcode.js"></script>
-<script type="text/javascript" src="./js/member/signup.js"></script>
+<!-- <script type="text/javascript" src="./js/member/signup.js"></script> -->
 <script type="text/javascript" src="./js/member/check.js"></script>
 
 <!-- cdn -->
@@ -24,7 +24,8 @@
 <!-- 글꼴 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
 	rel="stylesheet">
 
 <!-- CSS -->
@@ -36,6 +37,43 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+	
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#member_id_btn").on("click", function() {
+			$.ajax({
+				url : "/idChk",
+				type : "post",
+				dataType : "json",
+				data : {
+					"member_id" : $("#member_id").val()
+				},
+				success : function(data) {
+					if (data == 1) {
+						alert("중복된 아이디입니다.");
+						disableSignUpButton();
+					} else if (data == 0) {
+						alert("사용가능한 아이디입니다.");
+						enableSignUpButton();
+					}
+				}
+
+			});
+		});
+		
+		function disableSignUpButton() {
+            $("#signup").prop("disabled", true); // 회원가입 버튼 비활성화
+        }
+
+        function enableSignUpButton() {
+            $("#signup").prop("disabled", false); // 회원가입 버튼 활성화
+        }
+	});
+</script>
+
 
 </head>
 
@@ -51,38 +89,45 @@
 
 			<div class="input-form col-md-12 mx-auto">
 				<h4 class="mb-3">회원가입 - 고등학생</h4>
-				<form class="validation-form" novalidate>
+				<!-- <form class="validation-form" novalidate> -->
+				<form name="join" method="post" action="join" autocomplete="off"
+					encType="utf-8">
 					<div class="row">
 						<div class="col-md-11 mb-3">
-							<label for="name">이름</label> <input type="text" 
+							<label for="name">이름</label> <input type="text"
 								class="form-control" id="name" placeholder="" value="" required>
 							<div class="invalid-feedback">이름을 입력해주세요.</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-md-8 mb-2">
-							<label for="member_id">아이디</label> <input type="text" name="member_id"
-								class="form-control" id="member_id" required>
-							<div class="invalid-feedback">아이디를 입력해주세요.</div>
+							<label for="member_id">아이디</label> <input type="text"
+								name="member_id" class="form-control" id="member_id"
+								placeholder="4자 이상 입력" minlength="4" maxlength="15" required>
+							<!-- <div class="invalid-feedback">아이디를 입력해주세요.</div> -->
 						</div>
 						<div class="col-md-1.5 mb-2 div_btn" id="div_zipcode_btn">
+							<!-- <button type="submit" id="member_id_btn" class="code_num_btn"
+								onclick="" value="id 중복 체크"></button> -->
 							<input type="button" id="member_id_btn" class="code_num_btn"
-								onclick="" value="id 중복 체크">
+								onclick="" value="id 중복 체크"> <span id="olmessage"></span>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-md-11 mb-3">
-							<label for="pass">비밀번호</label> <input type="password" name="pass"
-								class="form-control" id="pass" placeholder="" value="" required>
+							<label for="member_pass">비밀번호</label> <input type="password"
+								name="member_pass" class="form-control" id="pass" placeholder=""
+								value="" required>
 							<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-11 mb-3">
-							<label for="pass_check">비밀번호 확인</label> <input type="password" name="pass_check"
-								class="form-control" id="pass_check" placeholder="" value="" required>
+							<label for="pass_check">비밀번호 확인</label> <input type="password"
+								name="pass_check" class="form-control" id="pass_check"
+								placeholder="" value="" required>
 							<div class="invalid-feedback">비밀번호를 다시입력해주세요.</div>
 						</div>
 
@@ -90,46 +135,51 @@
 
 					<div class="row">
 						<div class="col-md-11 mb-3">
-							<label for="gender">성별</label> 
-							<select class="custom-select d-block w-100" id="gender" required>
+							<label for="member_gender">성별</label> <select
+								class="custom-select d-block w-100" id="member_gender"
+								name="member_gender" required>
 								<option value=""></option>
 								<option>남자</option>
 								<option>여자</option>
-								<option>밝히고 싶지 않음</opton>
+								<option>밝히고 싶지 않음
+									</opton>
 							</select>
 							<div class="invalid-feedback">성별을 선택해주세요.</div>
 						</div>
 					</div>
-					<!-- 학교 받아올 수 있게 되면 추가해보기! -->
 					<div class="row">
 						<div class="col-md-11 mb-3">
-							<label for="grade">학년</label> 
-							<select class="custom-select d-block w-100" id="grade" required>
+							<label for="member_grade">학년</label> <select
+								class="custom-select d-block w-100" id="member_grade"
+								name="member_grade" required>
 								<option value=""></option>
 								<option>1학년</option>
 								<option>2학년</option>
-								<option>3학년</opton>
+								<option>3학년
+									</opton>
 							</select>
 							<div class="invalid-feedback">학년을 선택해주세요.</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-md-11 mb-3">
-							<label for="major">전공</label> 
-							<select class="custom-select d-block w-100" id="major" required>
+							<label for="member_major">전공</label> <select
+								class="custom-select d-block w-100" id="member_major"
+								name="member_major" required>
 								<option value=""></option>
 								<option>통합</option>
 								<option>문과</option>
-								<option>이과</opton>
+								<option>이과
+									</opton>
 							</select>
 							<div class="invalid-feedback">과를 선택해주세요.</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-md-11 mb-3">
-							<label for="email">이메일</label> <input type="email"
+							<label for="email">이메일</label> <input type="email" name="email"
 								class="form-control" id="email" placeholder="quizwiki@naver.com"
 								required>
 							<div class="invalid-feedback">이메일을 입력해주세요.</div>
@@ -138,8 +188,8 @@
 
 					<div class="row">
 						<div class="col-md-8 mb-2">
-							<label for="sample4_postcode">연락처</label> <input type="text"
-								class="form-control" id="telnum" placeholder="-제외 숫자만 입력"
+							<label for="member_telnum">연락처</label> <input type="text"
+								class="form-control" id="member_telnum" placeholder="-제외 숫자만 입력"
 								required>
 							<div class="invalid-feedback">전화번호를 입력해주세요.</div>
 						</div>
@@ -165,8 +215,8 @@
 					<div class="row">
 						<div class="col-md-8 mb-2">
 							<label for="sample4_postcode">우편번호</label> <input type="text"
-								class="form-control" id="sample4_postcode" placeholder="우편번호"
-								required>
+								name="member_zipcode" class="form-control" id="sample4_postcode"
+								placeholder="우편번호" required>
 							<div class="invalid-feedback">우편번호를 통해 주소를 입력해주세요.</div>
 						</div>
 						<div class="col-md-1.5 mb-2 div_btn" id="div_zipcode_btn">
@@ -179,14 +229,14 @@
 						<div class="col-md-11 mb-3">
 							<label for="sample4_roadAddress">도로명 주소</label> <input
 								type="text" class="form-control" id="sample4_roadAddress"
-								placeholder="도로명주소" required>
+								name="member_road_addr" placeholder="도로명주소" required>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-11 mb-3">
 							<label for="sample4_jibunAddress">지번주소</label> <input type="text"
-								class="form-control" id="sample4_jibunAddress"
-								placeholder="지번주소" required>
+								name="member_jibun_addr" class="form-control"
+								id="sample4_jibunAddress" placeholder="지번주소" required>
 						</div>
 					</div>
 
@@ -207,7 +257,7 @@
 
 					<hr class="mb-4">
 
-					
+
 					<div class="col-md-6 mb-3">
 						<div class="custom-control custom-checkbox">
 							<input type="checkbox" class="custom-control-input"
@@ -234,8 +284,8 @@
 						</div>
 					</div>
 					<div class="mb-4"></div>
-					<button class="btn btn-primary btn-lg btn-block" type="button" onclick="passcheck_signup()">가입
-						완료</button>
+					<button class="btn btn-primary btn-lg btn-block" type="submit"
+						onclick="passcheck_signup()" id="signup" disabled>가입 완료</button>
 				</form>
 			</div>
 		</div>

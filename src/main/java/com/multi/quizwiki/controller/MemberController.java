@@ -1,22 +1,43 @@
 package com.multi.quizwiki.controller;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.multi.quizwiki.dto.MemberDTO;
+import com.multi.quizwiki.service.MemberService;
+import com.univcert.api.UnivCert;
 
 @Controller
 public class MemberController {
+
+	@Autowired
+	MemberService service;
 
 	public MemberController() {
 
 	}
 
 	// 로그인
-	@RequestMapping("/login.do")
-	public String show_login() {
-		return "thymeleaf/member/login";
+	@GetMapping("/login.do") 
+	public String show_login() { 
+		return "thymeleaf/member/login"; 
 	}
+	 
 
 	// 로그인 -> 아이디 찾기
 	@RequestMapping("/findId.do")
@@ -71,6 +92,100 @@ public class MemberController {
 	public String show_signup2() {
 		return "thymeleaf/member/signup2";
 	}
+
+	
+	// 로그인
+	@PostMapping("/login.do") 
+	public ModelAndView login(MemberDTO loginUserInfo, HttpServletRequest request){ 
+		ModelAndView mav = new ModelAndView();
+		MemberDTO user = service.login(loginUserInfo);
+		String view="";
+		if(user!=null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+			view = "redirect:/main";
+		} else {
+			//System.out.println("등록되지 않은 사용자");
+			view = "redirect:/login.do";
+		}
+		mav.setViewName(view);
+		return mav; 
+	}
+	
+	// 로그아웃
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		if(session!=null) {
+			 session.invalidate();
+		}
+		return "redirect:/main";
+	}
 	
 	
+	// 아이디 중복 확인
+	@RequestMapping(value="/idChk", method = RequestMethod.POST)
+	@ResponseBody
+	public int idCheck(MemberDTO member_id) throws Exception{
+		int result = service.idCheck(member_id);
+		return result;
+	}
+	
+	// 회원가입
+//	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+//	public String signup(MemberDTO member_id) throws Exception{
+//		int result = service.idCheck(member_id);
+//		try {
+//			// 입력된 아이디가 존재한다면 회원가입 화면으로
+//			if(result == 1) {
+//				return "thymeleaf/member/signupType";
+//			}
+//			
+//		} catch (Exception e) {
+//			throw new RuntimeException();
+//		}
+//		return "redirect:/login.do";
+//	}
+	
+
+	// 대학교 메일 인증
+	/*
+	 * @RequestMapping(value = "https://univcert.com/api/v1/certify", produces =
+	 * "application/json;charset=utf-8 ")
+	 * 
+	 * @ResponseBody public Map<String, Object> univ(String member_email, String
+	 * universityName) throws IOException { System.out.println(member_email);
+	 * System.out.println(universityName); Map<String, Object> msg =
+	 * UnivCert.certify("aca6d520-24d6-43d2-a86e-08b8a7dc1762", member_email,
+	 * universityName, true); // UnivCert.certify(API_KEY, email, universityName,
+	 * univ_check) System.out.println("msg : " + msg); return msg;
+	 * 
+	 * }
+	 */
+
+	@RequestMapping(value = "/test", produces ="application/json;charset=utf-8 ") 
+	//@ResponseBody 
+	public String test(String email,String universityName)throws IOException
+	{
+		System.out.println("============email===========");
+		UnivCert.certify("b7026b59-2d05-4165-be01-de304e8c76ae", email, universityName, true);
+		return "test";
+	}
+
+	// sms 인증
+//	@RequestMapping("/sendSMS")
+//	@ResponseBody
+//	public String sendSMS(String telnum) {
+//
+//		Random rand = new Random(); // 랜덤숫자 생성
+//		String numStr = "";
+//		for (int i = 0; i < 4; i++) {
+//			String ran = Integer.toString(rand.nextInt(10));
+//			numStr += ran;
+//		}
+//
+//		service.certifiedPhoneNumber(telnum, numStr);
+//
+//		return numStr;
+//	}
+
 }
