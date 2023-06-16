@@ -22,6 +22,7 @@ th:fragment="header"
 		</div>
 
 		<div class="util-sub-menu">
+
 			<!-- 로그인이 되어있지 않은 경우 -->
 			<th:block th:if="${session.user==null}">
 				<a th:href="@{/login.do}" class="shift-between"> 로그인 </a>
@@ -31,8 +32,11 @@ th:fragment="header"
 				<a th:href="@{/logout.do}" class="shift-between"> 로그아웃 </a>
 			</th:block>
 			 
-			<a href="/signupType" class="shift-between"> 회원가입 </a> 
-			<a href="/faqt"> 고객센터 </a>
+	
+			 <a href="/signupType" class="shift-between"> 회원가입 </a> <a
+				href="/faqt"> 고객센터 </a>
+				<a href="/dash">대시보드1(임시)</a>
+				<a href="/dash1">대시보드2(임시)</a>
 		</div>
 	</div>
 	<div class="nav-bar">
@@ -46,7 +50,7 @@ th:fragment="header"
 				<li><a href="#"> <i style="color: #2b5293"
 						class="fa-solid fa-bars"></i> 전체보기
 				</a></li>
-				<li><a href="/pboard/list" class="circle-effect-parent"> <span
+				<li><a href="/pboard/list?cate=1" class="circle-effect-parent"> <span
 						class="text-area"> 나만의 문제집 <svg class="circle-effect"
 								viewBox="0 0 1024 1024" version="1.1"
 								xmlns="http://www.w3.org/2000/svg"
