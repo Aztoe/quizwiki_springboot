@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.multi.quizwiki.qboard.dto.QboardDTO;
+import com.multi.quizwiki.qboard.dto.SearchDto;
 import com.multi.quizwiki.qboard.entity.QboardReplyEntity;
 import com.multi.quizwiki.qboard.service.QboardService;
 import com.multi.quizwiki.qboard.service.QboardServiceJPA;
@@ -64,9 +66,9 @@ public class QboardController {
 	
 	
 	  @GetMapping("/qboard/list.do") 
-	  public String QboardList(Model model) {
+	  public String QboardList(@ModelAttribute("params") SearchDto params,  Model model) {
 		  log.info("list.do 실행");
-		  List<QboardDTO> qboardList = qboardservice.getBoardList();
+		  List<QboardDTO> qboardList = qboardservice.getBoardList(params);
 		  model.addAttribute("qboardlist",qboardList); 
 	  		
 	  	return "thymeleaf/qboard/qboard_list"; 

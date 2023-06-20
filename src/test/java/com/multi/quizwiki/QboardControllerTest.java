@@ -11,7 +11,6 @@ import com.multi.quizwiki.qboard.service.QboardService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-@RequestMapping("quizwiki")
 @SpringBootTest
 @RequiredArgsConstructor
 @Slf4j
@@ -27,7 +26,7 @@ public class QboardControllerTest {
 	
 	
 	
-	void testdb() {
-		
-	}
+	
+	
+	
 }

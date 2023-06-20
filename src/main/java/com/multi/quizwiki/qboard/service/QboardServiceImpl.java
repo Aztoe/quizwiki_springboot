@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.multi.quizwiki.qboard.dao.QboardDAO;
 import com.multi.quizwiki.qboard.dto.QboardDTO;
 import com.multi.quizwiki.qboard.dto.QboardRequestDTO;
+import com.multi.quizwiki.qboard.dto.SearchDto;
 import com.multi.quizwiki.qboard.entity.QboardEntity;
 import com.multi.quizwiki.qboard.entity.QboardReplyEntity;
 import com.multi.quizwiki.qboard.repository.QboardRepository;
@@ -34,9 +35,9 @@ public class QboardServiceImpl implements QboardService {
 	}
 
 	@Override
-	public List<QboardDTO> getBoardList() {
+	public List<QboardDTO> getBoardList(SearchDto params) {
 		log.info("list.do 서비스 실행 ");
-		return qboarddao.getBoardList();
+		return qboarddao.getBoardList(params);
 	}
 
 	@Override

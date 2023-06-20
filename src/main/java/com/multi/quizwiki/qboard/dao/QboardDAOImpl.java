@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.multi.quizwiki.qboard.dto.QboardDTO;
+import com.multi.quizwiki.qboard.dto.SearchDto;
 import com.multi.quizwiki.qboard.entity.QboardReplyEntity;
 import com.multi.quizwiki.qboard.repository.QboardReplyRepository;
 import com.multi.quizwiki.qboard.repository.QboardRepository;
@@ -34,8 +35,8 @@ public class QboardDAOImpl implements QboardDAO {
 	}
 
 	@Override
-	public List<QboardDTO> getBoardList() {
-		return template.selectList("com.multi.quizwiki.qboard.selectqboardlist");
+	public List<QboardDTO> getBoardList(SearchDto params) {
+		return template.selectList("com.multi.quizwiki.qboard.selectqboardlist",params);
 	}
 
 	@Override

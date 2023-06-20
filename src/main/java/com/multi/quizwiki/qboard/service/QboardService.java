@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.multi.quizwiki.qboard.dto.QboardDTO;
 import com.multi.quizwiki.qboard.dto.QboardRequestDTO;
+import com.multi.quizwiki.qboard.dto.SearchDto;
 import com.multi.quizwiki.qboard.entity.QboardEntity;
 import com.multi.quizwiki.qboard.entity.QboardReplyEntity;
 public interface QboardService {
 	public int insert(QboardDTO qboard);
 
 
-	 public List<QboardDTO> getBoardList(); 
+	 public List<QboardDTO> getBoardList(SearchDto params); 
 	
 	
 	 public QboardDTO getQboardDetail(Long qboard_id);
