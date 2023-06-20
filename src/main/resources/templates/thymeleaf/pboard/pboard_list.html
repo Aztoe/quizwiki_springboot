@@ -17,15 +17,14 @@ layout:fragment="content"
 	<!-- pboard_list -->
 	<div id="pboard-list">
 		<div id="pboard-title">
-			<span class="title-subject">국어 (쓰기)</span>
+			<span class="title-subject">[[${pboardCateList[param.cate[0]-1].pboardCateName}]]</span>
 		</div>
 
-		<form id="search-bar" name="search-bar-form" action="get">
+		<form method="get" id="search-bar" name="search-bar-form" action="/pboard/list">
 			<div class="serach-group">
-				<select name="sort" id="sort" class="custom">
-					<option value="recent">제목</option>
-					<option value="best">작성자</option>
-					<option value="best">내용</option>
+				<select name="stype" id="stype" class="custom">
+					<option value="title">제목</option>
+					<option value="id">작성자</option>
 				</select>
 
 				<div class="search-input">
@@ -33,9 +32,11 @@ layout:fragment="content"
 						placeholder="검색어를 입력해 주세요." class="custom">
 					<button>검색</button>
 				</div>
+				
+				<input type="hidden" name="cate" th:value="${param.cate}"/>
 			</div>
 
-			<div onclick="location.href='/pboard/write'" id="write-btn">
+			<div onclick="location.href='/pboard/write?cate='+new URLSearchParams(window.location.search).get('cate')" id="write-btn">
 				<i class="fa-solid fa-pencil"></i> 글쓰기
 			</div>
 		</form>
@@ -54,113 +55,55 @@ layout:fragment="content"
 				</thead>
 
 				<tbody>
-					<tr>
+					<tr th:each="pboard : ${pboardList}">
 						<td>
-							<h5>1</h5>
+							<h5 th:text="${pboard.pboardId}"></h5>
 						</td>
-						<td class="text-left"><a href="/pboard/read">6월 모의고사 2023-06-16 모의고사
-								제목 길게 테스트ㄷㄷㄷㄷㄷㄷㄷ </a></td>
+						<td class="text-left"><a 
+						th:href="@{/pboard/read(cate=${param.cate},no=${pboard.pboardId})}"
+						th:text = ${pboard.pboardTitle}
+						></a></td>
 						<td>
-							<h5>홍길동</h5>
+							<h5 th:text ="${pboard.memberId}"></h5>
 						</td>
 						<td>
-							<h5>23-05-26</h5>
+							<h5 th:if="${pboard.pboardRegDate.after(today)}" th:text="${#dates.format(pboard.pboardRegDate, 'HH:mm')}"></h5>
+							<h5 th:unless="${pboard.pboardRegDate.after(today)}" th:text="${#dates.format(pboard.pboardRegDate, 'yy-MM-dd')}"></h5>
 						</td>
 						<td>
-							<h5>27</h5>
+							<h5 th:text="${pboard.pboardShowCount}"></h5>
 						</td>
 
 						<td>
-							<h5>3</h5>
+							<h5 th:text="${pboard.pboardLikeCount}"></h5>
 						</td>
 					</tr>
-
-					<tr>
-						<td>
-							<h5>1</h5>
-						</td>
-						<td class="text-left"><a href="/pboard/read">6월 모의고사 2023-06-16 모의고사
-								제목 길게 testtesttesttesttesttesttesttesttesttesttesttest </a></td>
-						<td>
-							<h5>홍길동</h5>
-						</td>
-						<td>
-							<h5>23-05-26</h5>
-						</td>
-						<td>
-							<h5>27</h5>
-						</td>
-
-						<td>
-							<h5>3</h5>
-						</td>
-					</tr>
-
-					<tr>
-						<td>
-							<h5>1</h5>
-						</td>
-						<td class="text-left"><a href="/pboard/read">asdasd</a></td>
-						<td>
-							<h5>홍길동</h5>
-						</td>
-						<td>
-							<h5>23-05-26</h5>
-						</td>
-						<td>
-							<h5>27</h5>
-						</td>
-
-						<td>
-							<h5>3</h5>
-						</td>
-					</tr>
-
-					<tr>
-						<td>
-							<h5>1</h5>
-						</td>
-						<td class="text-left"><a href="/pboard/read">123awd </a></td>
-						<td>
-							<h5>홍길동</h5>
-						</td>
-						<td>
-							<h5>23-05-26</h5>
-						</td>
-						<td>
-							<h5>27</h5>
-						</td>
-
-						<td>
-							<h5>3</h5>
-						</td>
-					</tr>
-
-					<tr>
-						<td>
-							<h5>1</h5>
-						</td>
-						<td class="text-left"><a href="/pboard/read">12423634745 </a></td>
-						<td>
-							<h5>홍길동</h5>
-						</td>
-						<td>
-							<h5>23-05-26</h5>
-						</td>
-						<td>
-							<h5>27</h5>
-						</td>
-
-						<td>
-							<h5>3</h5>
-						</td>
-					</tr>
-
 				</tbody>
 			</table>
-
+		
 		</div>
-
+		
+		<div class="paging-wrap">
+        	<ul id="paging-btn-list">
+	            <li>
+	                <a class="page-btn disabled" th:if="${currentPage == 1}"><i class="fa-solid fa-square-caret-left"></i></a>
+	                <a class="page-btn" th:unless="${currentPage == 1}" th:href="@{/pboard/list(page=${currentPage - 1},cate=${param.cate})}"><i class="fa-solid fa-square-caret-left"></i></a>
+	            </li>
+	
+	            <th:block th:each="page : ${pages}">
+	                <li th:class="${currentPage == page ? 'current-page-btn' : ''}">
+	                    <a class="page-btn" th:if="${currentPage == page}" th:text="${page}"></a>
+	                    <a class="page-btn" th:unless="${currentPage == page}" th:href="@{/pboard/list(page=${page},cate=${param.cate})}" th:text="${page}"></a>
+	                </li>
+	            </th:block>
+	
+	            <li>
+	                <a class="page-btn disabled" th:if="${currentPage >= totalPage}"><i class="fa-solid fa-square-caret-right"></i></a>
+	                <a class="page-btn" th:unless="${currentPage >= totalPage}" th:href="@{/pboard/list(page=${currentPage + 1},cate=${param.cate})}"><i class="fa-solid fa-square-caret-right"></i></a>
+	            </li>
+        	</ul>
+		</div>
+		
 	</div>
 	<!-- pboard_list end -->
 </body>

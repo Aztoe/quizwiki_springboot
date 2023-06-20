@@ -24,25 +24,34 @@
 					<colgroup>
 						<col width="10%">
 						<col width="45%">
-						<col width="14%">
-						<col width="18%">
-						<col width="13%">
+						<col width="15%">
+						<col width="10%">
+						<col width="10%">
+						<col width="10%">
 					</colgroup>
 
 					<thead>
 						<tr>
 							<th>번호</th>
 							<th>제목</th>
-							<th>작성자</th>
 							<th>작성일</th>
-							<th>댓글수</th>
+							<th>조회 수</th>
+							<th>좋아요 수</th>
+							<th>댓글 수</th>
 						</tr>
 					</thead>
 
 					<tbody>
-
-						<tr>
+						<tr th:if="${qboardlist.size==0}">
 							<td colspan="6" class="empty_li">질문이 없습니다.</td>
+						</tr>
+						<tr th:each="qboard:${qboardlist}" th:unless="${qboardlist.size==0}">
+							<td><span th:text="${qboard.qboard_id}"></span></td>
+							<td><span th:text="${qboard.title}"></span></td>
+							<td><span th:text="${qboard.regdate}"></span></td>
+							<td><span th:text="${qboard.view_count}"></span></td>
+							<td><span th:text="${qboard.like_count}"></span></td>
+							<td><span th:text="${qboard.comment_count}"></span></td>
 						</tr>
 					</tbody>
 				</table>

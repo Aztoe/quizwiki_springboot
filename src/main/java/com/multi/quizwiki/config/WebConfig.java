@@ -2,12 +2,16 @@ package com.multi.quizwiki.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
+import com.multi.quizwiki.interceptor.PboardInterceptor;
+
 @Configuration
-public class WebConfig {
+public class WebConfig implements WebMvcConfigurer{
 	@Bean
 	public TilesConfigurer tilesConfigurer() {
 		final TilesConfigurer configurer = new TilesConfigurer();
@@ -26,4 +30,18 @@ public class WebConfig {
 		return tilesViewResolver;
 	}
 
+	
+	//인터셉터 --(bean으로 등록해도되고 필드에서 autowired받아도됨.)
+	@Bean
+	public PboardInterceptor pboardInterceptor() {
+		return new PboardInterceptor();
+	}
+	
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(pboardInterceptor())
+			.addPathPatterns("/pboard/**");
+		
+	}
 }

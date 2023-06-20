@@ -12,75 +12,16 @@ th:fragment="aside"
 		<div class="aside-cate">
 			<div id="aside-title">
 				<h2>
-					<i class="fa-solid fa-book"></i> 국어
+					<i class="fa-solid fa-book"></i> 나만의 문제집
 				</h2>
 			</div>
 			<div class="aside-shifter"></div>
 			<ul class="aside-nav">
-				<li><a id="nav-select" href="#">쓰기</a></li>
-				<li><a href="#">비문학</a></li>
-				<li><a href="#">문학</a></li>
-			</ul>
-		</div>
-	
-		<div class="aside-cate">
-			<div id="aside-title">
-				<h2>
-					<i class="fa-solid fa-book"></i> 영어
-				</h2>
-			</div>
-			<div class="aside-shifter"></div>
-			<ul class="aside-nav">
-				<li><a href="#">문법</a></li>
-				<li><a href="#">독해</a></li>
-				<li><a href="#">어휘</a></li>
-			</ul>
-		</div>
-	
-		<div class="aside-cate">
-			<div id="aside-title">
-				<h2>
-					<i class="fa-solid fa-book"></i> 수학
-				</h2>
-			</div>
-			<div class="aside-shifter"></div>
-			<ul class="aside-nav">
-				<li><a href="#">수1</a></li>
-				<li><a href="#">수2</a></li>
-				<li><a href="#">미적분과 통계</a></li>
-				<li><a href="#">미적분과 통계</a></li>
-				<li><a href="#">기하와 벡터</a></li>
-			</ul>
-		</div>
-	
-		<div class="aside-cate">
-			<div id="aside-title">
-				<h2>
-					<i class="fa-solid fa-book"></i> 사회
-				</h2>
-			</div>
-			<div class="aside-shifter"></div>
-			<ul class="aside-nav">
-				<li><a href="#">한국사</a></li>
-				<li><a href="#">지리</a></li>
-				<li><a href="#">세계사</a></li>
-				<li><a href="#">법과 사회</a></li>
-				<li><a href="#">사회문화</a></li>
-			</ul>
-		</div>
-	
-		<div class="aside-cate">
-			<div id="aside-title">
-				<h2>
-					<i class="fa-solid fa-book"></i> 과학
-				</h2>
-			</div>
-			<div class="aside-shifter"></div>
-			<ul class="aside-nav">
-				<li><a href="#">물리</a></li>
-				<li><a href="#">화학</a></li>
-				<li><a href="#">생물</a></li>
-				<li><a href="#">지구과학</a></li>
+				<li th:each="pcate : ${pboardCateList}">
+					<a th:id="(${param.cate[0]} == ${pcate.pboardCateId}) ? 'nav-select':''" 
+					th:text="${pcate.pboardCateName}" 
+					th:href="@{/pboard/list(cate=${pcate.pboardCateId})}"></a>
+				</li>
 			</ul>
 		</div>
 	</aside>

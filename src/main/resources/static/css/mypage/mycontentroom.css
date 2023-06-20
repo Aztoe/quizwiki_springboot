@@ -433,3 +433,7 @@ td {
 .flex_wrap.between {
     justify-content: space-between;
 }
+a{
+	color: black;
+	text-decoration: none;
+}

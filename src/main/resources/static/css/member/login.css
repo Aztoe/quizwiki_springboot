@@ -144,6 +144,7 @@ img {
 }
 .login__button:hover {
   background-color: black;
+  cursor: pointer;
 }
 .login__account, .login__signin, .login__signup {
   font-weight: 600;

@@ -531,7 +531,7 @@ ol ol {
 }
 
 dl {
-  margin-bottom: 20px;
+	
 }
 
 dt,
@@ -6759,3 +6759,11 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
+
+  
+  a {
+    color: currentColor;
+    text-decoration: none;
+    cursor: pointer;
+}
+}

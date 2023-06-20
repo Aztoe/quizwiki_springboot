@@ -3,28 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.multi.quizwiki.pboard">
-	<!-- 게시물 등록 -->
-	<insert id="insert" parameterType="pboard">
-		insert into pboard 
-		values(null,#{member_id},#{scate_id},#{title},#{content},now(),null,0,0,'r')
-	</insert>
+
 	
 	<!-- 게시물 조회 status체크해서 삭제 된 게시물은 따로 분기처리 -->
 	<select id="read" resultType="pboard" parameterType="int">
-		select * from pboard where pboard_id = #{pboard_id}
+		select pb.* from pboard pb 
+				 join problem p 
+		on p.pboard_id = pb.#{pboard_id}
+		 where 
 	</select>
-	
-	<!-- 게시물 수정 edit -->
-	<update id="edit" parameterType="pboard">
-		update pboard 
-		set title=#{title} , content=#{content} , editdate = now(), status = "u"
-		where pboard_id = #{pboard_id}
-	</update>
-	
-	<!-- 게시물 삭제 delete -->
-	<update id="delete" parameterType="int">
-		update pboard 
-		set status = "d" 
-		where pboard_id = #{pboard_id}
-	</update>
 </mapper>

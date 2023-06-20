@@ -17,7 +17,16 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io/</url>
+		</repository>
+	</repositories>
+
+	
 	<dependencies>
+
 		<!-- 타임리프 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -80,7 +89,87 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>net.nurigo</groupId>
+			<artifactId>sdk</artifactId>
+			<version>4.2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>net.nurigo</groupId>
+			<artifactId>javaSDK</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<!-- json 처리 관련 라이브러리인 json parser나 json maker를 기본 라이브러리로 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<!-- 자바 객체(arraylist 같은 곳에 들어있는 dto처럼)를 json으로 자동 변환하는 작업 -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.in-seo</groupId>
+			<artifactId>univcert</artifactId>
+			<version>master-SNAPSHOT</version>
+		</dependency>
+
+		<!-- 대학교 메일 인증을 위한 추가 -->
+		<dependency>
+			<groupId>com.github.in-seo</groupId>
+			<artifactId>univcert</artifactId>
+			<version>master-SNAPSHOT</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.nurigo/sdk -->
+		<!-- sms 서비스 이용을 위한 추가 -->
+		<dependency>
+			<groupId>net.nurigo</groupId>
+			<artifactId>sdk</artifactId>
+			<version>4.2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>net.nurigo</groupId>
+			<artifactId>javaSDK</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<!--json 처리 관련 라이브러리인 json parser나 json maker를 기본 라이브러리로 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+
+
+		<!--자바 객체(arraylist 같은 곳에 들어있는 dto처럼)를 json으로 자동 변환하는 작업 -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
+		<!-- 일반 메일 인증을 위한 추가 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>2.7.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.5</version>
+		</dependency>
+
+
 	</dependencies>
+
 
 	<build>
 		<plugins>

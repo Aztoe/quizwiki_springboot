@@ -1,0 +1,133 @@
+@charset "UTF-8";
+.modify_wrapper {
+    width: 100%;
+}
+.modify_wrapper ul.modify_list {
+    width: 100%;
+    overflow: hidden;
+    font-size: 15px;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
+
+.modify_wrapper * {
+    font-size: 16px !important;
+    color: #000;
+}
+.modify_wrapper ul.modify_list li.fixed-box {
+    background: #fafafa;
+    height: 70px;
+    padding: 0 35px !important;
+}
+
+.modify_wrapper ul.modify_list>li {
+    padding-left: 165px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.modify_wrapper ul.modify_list li {
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.modify_wrapper * {
+    font-size: 16px !important;
+    color: #000;
+}.modify_wrapper ul.modify_list li.fixed-box p {
+    font-size: 14px;
+    color: #999;
+    line-height: 70px;
+}
+
+.modify_wrapper * {
+    font-size: 16px !important;
+    color: #000;
+}
+.modify_wrapper ul.modify_list li.fixed-box p strong {
+    font-size: 16px;
+    color: #212121;
+}
+.modify_wrapper ul.modify_list li .list_title {
+    width: 165px;
+    box-sizing: border-box;
+    padding: 0 35px;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    left: 0;
+}
+.modify_wrapper ul.modify_list li input[type='password'] {
+    height: 70px;
+    border: 0;
+    font-size: 15px;
+    box-sizing: border-box;
+    padding: 0 15px;
+}
+.modify_wrapper ul.modify_list li input[type='text'] {
+    height: 70px;
+    border: 0;
+    font-size: 15px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    font-weight: 500;
+}
+
+input[type=text], input[type=password], textarea {
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+}
+.modify_wrapper>p {
+    font-size: 14px !important;
+    padding-top: 20px;
+}
+
+.modify_wrapper ul.modify_list li .check_my {
+    position: absolute;
+    right: 740px;
+    top: 23px;
+}
+.single input[type="radio"] + label {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    padding-left: 17px;
+
+    font-size: 14px;
+    line-height: 20px;
+    color: #212121;
+}
+.single input[type="radio"] {
+    display: none;
+}
+.single input[type="radio"] + label:before {
+    position: absolute;
+    left: 0;
+    top: 3px;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    content: '';
+    background-size: 60%;
+    background-image: url(../images/check.png);
+    background-color: #fff;
+    border: 1px solid #e4e4e4;
+    border-radius: 2px;
+}
+.single input[type="radio"]:checked + label:before {
+    background-color: #000;
+    border-color: #000;
+}
+#userpropil{
+	padding-left: 35px;
+}
+#addr{
+	display: flex;	
+}
+#addrbtn{
+	margin-top: 10px;
+}

@@ -77,6 +77,19 @@ body {
     margin-bottom: 1rem!important;
     margin-left: 1rem;
 }
+/* #member_id_btn {
+	background-color: GhostWhite; 
+	width: 15%; 
+	height: 40px;
+} */
+.olmessagef {
+	color: red; 
+	font-style: Italic;
+}
+.olmessaget {
+	color: blue; 
+	font-style: Italic;
+}
 
 @media (min-width: 768px){
 	.col-md-12 {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.quizwiki.mypage">
+	<!--포인트(point) -->
+	<select id="pointread" resultType="point" parameterType="String" >
+		select * from mypage_point where member_id=#{member_id} 
+	</select>
+	<select id="pointtotal" resultType="String" parameterType="String" >
+		select sum(point_amount) from mypage_point where member_id=#{member_id}
+	</select>
+	<!--문의사항(inqury)  -->
+	<select id="inqury" resultType="inqury" parameterType="Map">
+		select * from inqury where member_id=#{member_id} and inqury_category=#{inqury_category}
+	</select>
+	<select id="inqurydetail" resultType="inqury" parameterType="String">
+		select * from inqury where inqury_id=#{inqury_id}
+	</select>
+	<!--문의사항 답변(inqury)  -->
+	<select id="inquryreply" resultType="inquryReply" parameterType="String">
+		select * from inqury_reply where inqury_id=#{inqury_id}
+	</select>
+	<!--내문제보기(myproblem) -->
+	<select id="pboardread" resultType="pboard" parameterType="String" >
+		select * from pboard where member_id=#{member_id} 
+	</select>
+	<select id="pboardcount" resultType="String" parameterType="String" >
+		select count(pboard_id) from pboard where member_id=#{member_id} 
+	</select>
+	<!--내질문(qboard) -->
+	<select id="qboardread" resultType="qboard" parameterType="String" >
+		select * from qboard where member_id=#{member_id} 
+	</select>
+	<!--오답노트(note)  -->
+	<select id="noteread" resultType="note" parameterType="String" >
+		select * from note where member_id=#{member_id} 
+	</select>
+	<select id="notecount" resultType="String" parameterType="String" >
+		select count(note_id) from note where member_id=#{member_id} 
+	</select>
+</mapper>

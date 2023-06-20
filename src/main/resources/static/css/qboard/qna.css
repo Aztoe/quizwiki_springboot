@@ -3,38 +3,7 @@
 */
 
 /* 테이블 기초 설정 */
-#QNA th { text-align: center; }
-#QNA .line { cursor: pointer; }
-#QNA .secret { cursor: auto; }
-#QNA .QNA_seq { width: 80px; text-align: center; }
-#QNA .QNA_subject {width: 400px; text-align:left; }
-#QNA .QNA_writer { width: 120px; text-align: center; }
-#QNA .QNA_regDate { width: 180px; text-align: center; }
 
-
-
-/* view 동적 태그 */
-#QNA .view { 
-	background-color: #eef2ff;
-	/* opacity: 0.8; */
-	height: 80px;
-}
-#QNA .view td {
-	vertical-align: middle;
-}
-
-#QNA .view #view_Q,
-#QNA .view #view_A {
-	font-size: 35px;
-}
-#QNA .view #view_Q {
-	padding-left: 28px;
-	color: #E9573F;
-}
-#QNA .view #view_A {
-	padding-left: 31px; 
-	color: #4A89DC;
-}
 
 #title {
 	margin: 10px 0px;
@@ -265,8 +234,8 @@ question .title-sub__text .course__title {
 
 .question .question__body {
     height: 24px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+/*     overflow: hidden;
+ */    text-overflow: ellipsis;
     white-space: nowrap;
     white-space: normal;
     line-height: 1.5;
@@ -292,12 +261,14 @@ question .title-sub__text .course__title {
     color: #868e96;
     font-size: 12px;
     font-weight: 400;
+    max-height: 20px;
 }
 
 .question .question__info-footer .question__info-detail {
     flex: 1 1 auto;
     width: 0;
     max-width: 520px;
+    max-height: 20px;
 }
 
 .question .question__info-footer>div {
@@ -341,6 +312,11 @@ li {
 .question .question__info-footer .question__info-userData dl dd .text {
     font-size: 12px;
     font-weight: 700;
+    
+    
+}
+.question .question__info-footer .question__info-userData dl {
+    display: flex;
 }
 .content {
 	    flex: 1 1 750px;
@@ -748,3 +724,31 @@ img {
     display: block;
 }
 
+
+.bootstrap-components .dropdown .dropdown-menu {
+    min-width: auto;
+}
+
+.bootstrap-components .dropdown-menu {
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    min-width: 10rem;
+    padding: .5rem 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+
+
+.flex-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}

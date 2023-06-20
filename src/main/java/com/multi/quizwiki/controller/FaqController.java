@@ -7,42 +7,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class FaqController {
 	@RequestMapping("/use")
 	public String use() {
-		return "use";
+		return "thymeleaf/useinfor/use";
 	}
 	@RequestMapping("/infor")
 	public String infor() {
-		return "infor";
+		return "thymeleaf/useinfor/infor";
 	}
 	@RequestMapping("/faqt")
 	public String faqt() {
-		return "total1";
+		return "thymeleaf/faq/total1";
 	}
 	@RequestMapping("/total2")
 	public String total2() {
-		return "total2";
+		return "thymeleaf/faq/total2";
 	}
 	@RequestMapping("/total3")
 	public String total3() {
-		return "total3";
+		return "thymeleaf/faq/total3";
 	}
 	@RequestMapping("/usecredit")
 	public String usecredit() {
-		return "usecredit";
+		return "thymeleaf/faq/useCredit";
 	}
 	@RequestMapping("/contentquestion")
 	public String contentquestion() {
-		return "contentquestion";
+		return "thymeleaf/faq/contentQuestion";
 	}
 	@RequestMapping("/siteuse")
 	public String siteuse() {
-		return "siteuse";
+		return "thymeleaf/faq/siteUse";
 	}
 	@RequestMapping("/etc")
 	public String etc() {
-		return "etc";
+		return "thymeleaf/faq/etc";
 	}
 	@RequestMapping("/oto")
 	public String oto() {
-		return "oto";
+		return "thymeleaf/faq/oneToOne";
+	}
+	@RequestMapping("/dash")
+	public String dash() {
+		return "FAQ/dash";
 	}
 }

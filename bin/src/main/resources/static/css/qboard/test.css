@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.question-header {
+	    justify-content: center;
+}
+
+.flex{
+	display: flex;
+    flex-direction: row;
+	
+}

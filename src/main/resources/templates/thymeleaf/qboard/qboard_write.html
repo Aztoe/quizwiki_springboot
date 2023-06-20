@@ -19,10 +19,12 @@ layout:fragment="content">
 <link rel="stylesheet" type="text/css" href="/css/qboard/bootstrap.css" />
 
 <!-- js -->
+<script th:src="@{/js/qboard/function.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
 <script type="text/javascript" src="/js/qboard/sidebar.js"></script>
 <script type="text/javascript" src="/js/qboard/jquery-1.11.2.js"></script>
 <script type="text/javascript" src="/js/qboard/bootstrap.js"></script>
-
  <script src="/libs/se2/js/service/HuskyEZCreator.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -70,6 +72,11 @@ layout:fragment="content">
 		<div id="content_body">
 
 			<form method="post" th:action="@{/quizwiki/qboard/write.do}" >
+			<form method="post" id="saveForm"  th:action="@{/quizwiki/qboard/write.do}">
+				<!-- 게시글 수정인 경우 서버로 전달할 게시글 번호 -->
+				
+				<input type="hidden" id="id" name="qboard_id" th:if="${qboard != null}" th:value="${qboard.qboard_id}" />
+				<input type="hidden" id="regDate" name="regDate" />
 				<select id="inSubject" autocomplete="categoryCode"
 					class="form-control" name="categoryCode"><option value=""
 						class="">과목을 선택해주세요.</option>
@@ -80,14 +87,26 @@ layout:fragment="content">
 					        
 					 
 				<!-- <textarea name="se2" id="se2" rows="10" cols="100" placeholder="질문 내용을 입력하세요." required></textarea> -->
+					class="form-control" name="categoryCode">
+					<option value="" class="">과목을 선택해주세요.</option>
+					<option   th:value="korean" 	class="">국어</option>
+					<option   th:value="english" class="">영어</option>
+					<option   th:value="math" class="">수학</option></select> 
+					
+					<input type="text"   id="title" name="title"    class="form-control" placeholder="제목" required />
+<!-- 				<textarea name="content" th:value="content" id="se2" placeholder="질문 내용을 입력하세요." required></textarea>
+ -->				
 				<div class="form-group">
 			      <input type="file" class="form-control-file border" name="file" >
 			    </div>
 				<textarea class="form-control" id="inContent" name="content" th:value="content"
 					placeholder="질문 내용을 입력하세요." required></textarea>
+				<textarea class="form-control" id="Content" name="content"
+					placeholder="질문 내용을 입력하세요." required></textarea>
+				
 				<span style='float: right;'> <input type="button"
-					class="btn btn-default" value="취소" onclick="history.back();" /> <input th:href="@{/qboard/write.do}"
-					type="submit" class="btn btn-success" value="질문등록" />	
+					class="btn btn-default" value="취소" onclick="history.back();" /> 
+					<input type="submit" id="saveBtn" onclick="saveQboard();" class="btn btn-success" value="질문등록"  />	
 				</span>
 
 			</form>
@@ -117,8 +136,56 @@ layout:fragment="content">
 	});
 	</script>
 	
-	<script type="text/javascript"></script>
-	<script th:inline="javascript"></script>
+<th:block layout:fragment="script">
+   <script th:inline="javascript">
+        /*<![CDATA[*/
+
+          
+            window.onload = () => {
+                renderQboard();
+            }
+
+
+            // 게시글 상세정보 렌더링
+            function renderQboard() {
+                const qboard = /*[[ ${qboard} ]]*/'';
+
+                if ( !qboard ) {
+                    initCreatedDate();
+                    return false;
+                }
+
+                const form = document.getElementById('saveForm');
+                const fields = ['qboard_id', 'title', 'content', ];
+
+                fields.forEach(field => {
+                    form[field].value = qboard[field];
+                })
+            }
+            // 등록일 초기화
+            function initCreatedDate() {
+                document.getElementById('regDate').value = dayjs().format('YYYY-MM-DD');
+            }
+
+	
+            // 게시글 저장(수정)
+            function saveQboard() {
+                const form = document.getElementById('saveForm');
+                const fields = [form.title, form.content];
+                const fieldNames = ['제목', '내용'];
+
+                for (let i = 0, len = fields.length; i < len; i++) {
+                    isValid(fields[i], fieldNames[i]);
+                }
+                form.action = '/quizwiki/qboard/update.do';
+                form.submit();
+            }
+
+        /*]]>*/
+        </script>
+  
+</th:block>
+	
 </body>
 
 </html>

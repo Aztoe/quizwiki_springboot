@@ -54,6 +54,10 @@
                 <div id="main-banner-title">
                     <h4>함께 성장하는 모두의 공부 커뮤니티</h4>
                     <h1>Quiz Wiki</h1>
+                    <th:block th:each="data : ${dataList}">
+                    	<p>데이터==> [[${data}]] </p>
+                    </th:block>
+                    
                 </div>
     
                 <div class="tabs tabs-style-shape tab-custom">

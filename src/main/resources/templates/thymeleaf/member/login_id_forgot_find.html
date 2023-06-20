@@ -19,21 +19,53 @@
 		<div class="login__content">
 			<div class="login__forms">
 
-				<form action="" class="login__register" id="login-in">
+				<form action="" class="login__register" id="login-in" method="post">
 					<h1 class="login__title">
-						<a href="/main">
-							<img src="/images/main/QuizWiki_logo1.jpeg" id="login_title_img">
+						<a href="/main"> <img src="/images/main/QuizWiki_logo1.jpeg"
+							id="login_title_img">
 						</a>
 					</h1>
 					<div class="login__box login_id_forgot">등록된 귀하의 아이디</div>
 					<hr>
+					<!-- <div th:include="login_id_forgot :: member_name"></div>
+					<div th:include="login_id_forgot :: memail"></div> -->
+					
+					
+					
+					
 					<div class="login__box login_id">
-						아이디
-						<span>아이디는 요기에</span>
-				
+					    아이디
+					    <div id="otherFileContent" style="display: none;"></div>
+					
+					<script>
+					
+					  
+					
+					  fetch('/findId.do')
+					    .then(response => response.text())
+					    .then(html => {
+					      const otherFileContent = document.getElementById('otherFileContent');
+					      otherFileContent.innerHTML = html;
+					
+					      const memberNameInput = otherFileContent.querySelector('[name="member_name"]');
+					      const emailInput = otherFileContent.querySelector('[name="email"]');
+						
+					      memberNameInput.style = '';
+					      emailInput.style = '';
+					      
+					    });
+					</script>
+					   <span th:if="${check==1}">
+					       
+					        <label>일치하는 정보가 존재하지 않습니다.</label>
+					    </span>
+					    
+					    <span th:if="${check == 0}">
+					        <label th:text="'찾으시는 아이디는 ' + ${member_id} + ' 입니다.'"></label>
+					    </span>
 					</div>
-					
-					
+
+
 					<a href="/login.do" class="login__button">로그인하기</a>
 				</form>
 

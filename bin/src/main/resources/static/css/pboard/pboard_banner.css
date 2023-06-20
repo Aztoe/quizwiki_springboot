@@ -1,0 +1,44 @@
+
+/* BANNER */
+.banner-gradient{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #007208, #02c158, #007208);
+    opacity: .7;
+}
+
+
+#pboard-banner{
+    position: relative;
+	width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+
+    height: 200px;
+    
+	background-image: url(/images/pboard/texture.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    border:#ff7700a1 10px solid;
+    border-style: ridge;
+    box-sizing: border-box;
+}
+
+#pboard-banner h1{
+    align-self: center;
+    font-family: "Typo_Crayon";
+    z-index: 5;
+	color: white;
+	font-size: 64px;
+	text-shadow: 5px 5px #000000;
+	padding-top:5px;
+    margin-left: 50px;
+}
+#pboard-banner h1::selection{
+    background-color: #01d00f;
+}

@@ -200,6 +200,9 @@ textarea.custom-input{
 	padding: 15px;
 }
 
+#preprint{
+	white-space: pre-wrap;
+}
 
 .problem_preview{
 	width: 100%;
@@ -217,13 +220,15 @@ textarea.custom-input{
 	background-color:whitesmoke;
 }
 .preview-printfile{
+	justify-content: center;
 	width:100%;
-	height:250px;
+	height:fit-content;
 	display:none;
 }
 .preview-printfile img{
-	width: 100%;
-  	height: 100%;
+    width: auto;
+    max-width: 100%;
+    height: fit-content;
   	object-fit: contain;
 }
 

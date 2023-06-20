@@ -1,0 +1,210 @@
+
+header {
+    position: relative;
+    background-color: white;
+    /* width: 100%; */
+    height: 130px;
+    padding: 0 7px;
+    border-bottom: 1px solid #2b3b9354;
+}
+
+header svg:not(:root){
+	overflow: visible;
+}
+
+header .util-bar{
+    height: 40px;
+    width: 1200px;
+    margin: 0 auto;
+    
+    font-family: "Pretendard";
+    display: flex;
+}
+header .util-bar-bg{
+    position: absolute;
+    z-index: -5;
+    background-color:#f6f6f6;
+    border-bottom: 1px solid #ebecee;
+    left: 0;
+    width: 100%;
+    height: 40px;
+}
+
+header .util-bar-notice{
+    align-self: center;
+}
+header .util-bar-notice::before{
+    content: 'NOTICE';
+    color: #2b5293;
+    font-weight: bold;
+    font-size: 12px;
+    font-weight: bold;
+    padding-right: 15px;
+}
+header .util-bar-notice a{
+    color: #707370;
+    font-size: 13px;
+    text-align: left;
+    text-decoration: none;
+}
+
+header .util-sub-menu{
+    margin-left:auto;
+    display: flex;
+    background: #000;
+    border-radius: 0 0 20px 20px;
+    height: 40px;
+    padding: 0 15px;
+    align-items: center;
+}
+
+header .util-sub-menu a{
+    position: relative;
+    text-decoration: none;
+    color: white;
+    font-size: 13px;
+    padding: 0 15px;
+    color: #fff;
+    font-family: 'Pretendard';
+}
+header .util-sub-menu .shift-between::before{
+    position: absolute;
+    right: 0;
+    top: 2px;
+    width: 1px;
+    height: 11px;
+    content: '|';
+}
+
+header .util-sub-menu a:link {
+    color : white;
+}
+header .util-sub-menu a:visited {
+    color : white;
+}
+header .util-sub-menu a:active {
+    color : white;
+}
+
+
+
+header .nav-bar{
+    font-family: "Esamanru";
+    position: relative;
+    height: 90px;
+    width: 1200px;
+    margin: 0 auto;
+} 
+header .nav-container{
+    height:100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+header .logo-wrap{
+    width: 195px;
+    height: 40px;
+}
+header .menu-list{
+    width: fit-content;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    font-size: 19px;
+    color: #212121;
+
+}
+header .menu-list>li{
+    padding-left: 10px;
+    position: relative;
+    padding: 35px 10px;
+}
+header .menu-list>li:first-child:before{
+    content: '';
+}
+header .menu-list>li:before{
+    position: relative;
+    content: '\00b7';
+    font-size: 15px;
+    top:-2px;
+    padding-right:10px;
+}
+header .text-area{
+    position: relative;
+}
+.circle-effect{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 70%;
+    overflow:visible;
+    
+}
+.circle-effect circle{
+    fill: #2b519385;
+    transform-origin: 50% 50%;
+    transform: scale(0);
+    opacity: 0;
+    transition: .5s;
+}
+.circle-effect-parent:hover circle{
+    opacity: .45;
+    transform: scale(5);
+}
+
+header .menu-list a{
+    text-decoration: none;
+}
+header .menu-list a:link {
+    color : black;
+}
+header .menu-list a:visited {
+    color : black;
+}
+header .menu-list a:active {
+    color : black;
+}
+
+
+header .icon-menu{
+    width: 277px;
+    height: 55px;
+    display: flex;
+}
+header .icon-menu a{
+    font-size: 16px;
+    color: #2f2f2f;
+    align-self: center;
+    margin-right: 30px;
+    font-weight: 400;
+}
+header .icon-menu i{
+    color: #b9b9b9;
+    padding-right: 2px;
+}
+
+header .icon-menu a{
+    text-decoration: none;
+}
+header .icon-menu a:link {
+    color : #2f2f2f;
+}
+header .icon-menu a:visited {
+    color : #2f2f2f;
+}
+header .icon-menu a:active {
+    color : #2f2f2f;
+}
+
+
+
+
+
+header .header-logo:hover .circle-effect circle{
+    opacity: .5;
+    transform: scale(1.5);
+}

@@ -5,10 +5,14 @@ import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Alias("pboard")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PboardDTO {
 	private int pboard_id; //문제게시물ID int
 	private String member_id; //FK 회원아이디 varchar(20)

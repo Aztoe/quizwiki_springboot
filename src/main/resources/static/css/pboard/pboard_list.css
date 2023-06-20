@@ -139,10 +139,12 @@ input[type="text"].custom {
     font-size: 12px;
 }
 .pboard tbody{
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .pboard tbody td a{
+	font-size: 14px;
+    text-decoration: none;
     display: inline-block;
     max-width: 100%;
     vertical-align: middle;
@@ -178,4 +180,30 @@ input[type="text"].custom {
 .board-layout-like{
     width: 8%;
     padding: 0 1%;
+}
+
+.paging-wrap{
+    margin: 15px auto;
+    width: 90%;
+    padding: 15px 20px;
+    display:flex;
+    justify-content: center;
+}
+
+#paging-btn-list{
+    display: flex;
+}
+#paging-btn-list .page-btn{
+	color:black;
+	font-family: "Esamanru";
+    font-size: 18px;
+    
+    padding: 0 10px;
+}
+#paging-btn-list .disabled{
+	color:#656565;
+}
+
+#paging-btn-list .current-page-btn a{
+	color: #116aff;
 }

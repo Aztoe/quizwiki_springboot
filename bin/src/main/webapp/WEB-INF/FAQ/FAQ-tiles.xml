@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ <tiles-definitions>
+	<definition name="total1" extends="singleTemplate">
+		<put-attribute name="content" value="/WEB-INF/FAQ/total1.jsp"></put-attribute>
+	</definition>
+	<definition name="total2" extends="singleTemplate">
+		<put-attribute name="content" value="/WEB-INF/FAQ/total2.jsp"></put-attribute>
+	</definition>
+	<definition name="total3" extends="singleTemplate">
+		<put-attribute name="content" value="/WEB-INF/FAQ/total3.jsp"></put-attribute>
+	</definition>
+	<definition name="usecredit" extends="singleTemplate">
+		<put-attribute name="content" value="/WEB-INF/FAQ/useCredit.jsp"></put-attribute>
+	</definition>
+	<definition name="contentquestion" extends="singleTemplate">
+		<put-attribute name="content" value="/WEB-INF/FAQ/contentQuestion.jsp"></put-attribute>
+	</definition>
+	<definition name="siteuse" extends="singleTemplate">
+		<put-attribute name="content" value="/WEB-INF/FAQ/siteUse.jsp"></put-attribute>
+	</definition>
+	<definition name="etc" extends="singleTemplate">
+		<put-attribute name="content" value="/WEB-INF/FAQ/etc.jsp"></put-attribute>
+	</definition>
+	<definition name="oto" extends="singleTemplate">
+		<put-attribute name="content" value="/WEB-INF/FAQ/oneToOne.jsp"></put-attribute>
+	</definition>
+</tiles-definitions>

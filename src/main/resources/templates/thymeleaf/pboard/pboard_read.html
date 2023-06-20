@@ -18,20 +18,21 @@ layout:fragment="content"
 	<div id="pboard-read">
 	<div class="pboard-outer">
 		<div id="pboard-title">
-			<span class="title-subject">6월 모의고사</span>
+			<span class="title-subject" th:text="${pboard.pboardTitle}"></span>
 			
 			<div class="pboard-info">
-				<p class="pboard-info-author"><i class="fa-solid fa-person"></i>홍길동</p>
+				<p class="pboard-info-author"><i class="fa-solid fa-person"></i>[[${pboard.memberId}]]</p>
 				<div class="ma-left">
-					<p class="pboard-info-view"><i class="fa-solid fa-eye"></i>22</p>
-					<p class="pboard-info-like"><i class="fa-solid fa-thumbs-up"></i>42</p>
-					<p class="pboard-info-regdate"><i class="fa-solid fa-calendar-days"></i>2023-05-29</p>
+					<p class="pboard-info-view"><i class="fa-solid fa-eye"></i>[[${pboard.pboardShowCount}]]</p>
+					<p class="pboard-info-like"><i class="fa-solid fa-thumbs-up"></i>[[${pboard.pboardLikeCount}]]</p>
+					<p class="pboard-info-regdate"><i class="fa-solid fa-calendar-days"></i>[[${#dates.format(pboard.pboardRegDate, 'yy-MM-dd / hh:mm')}]]</p>
 				</div>
 			</div>
 		</div>
 		
 		<div id="pboard-read-content">
-			<p>게시글 내용</p>
+			<th:block th:utext="${pboard.pboardContent}">
+			</th:block>
 		</div>
 		
 		<div class="custom-btn-list">
@@ -39,21 +40,24 @@ layout:fragment="content"
 			<div onclick="openCBT()" class="custom-btn green-btn"><i class="fa-solid fa-pen"></i>문제 풀어보기</div>
 		</div>
 		
-		<div class="comment-area">
-			<div class="comment-desc"><p>댓글 <span>1</span></p></div>
+		<div class="comment-area" th:with="replyList=${pboard.pboardReplyList}">
+			<div class="comment-desc"><p>댓글 <span th:text="${#lists.size(replyList)}"></span></p></div>
 			<ul class="comment-list">
-				<li class="comment-list-item">
+				<li th:each="reply:${replyList}" class="comment-list-item">
 					<div class="comment-list-title">
-						<p class="comment-author">김길동</p>
-						<p class="comment-regdate">2023-05-29 7시 48분</p>
+						<p class="comment-author" th:text="${reply.memberId}">김길동</p>
+						<p class="comment-regdate" th:text="${reply.pboardReplyEditDate}">2023-05-29 7시 48분</p>
 					</div>
-					<div class="comment-list-content">안녕하세요. 김길동입니다.</div>
+					<div class="comment-list-content" th:text="${reply.pboardReplyContent}">안녕하세요. 김길동입니다.</div>
 				</li>
 			</ul>
 			
-			<form id="comment-write-form">
-				<textarea class="custom-input" rows="3" cols="3"></textarea>
-				<div style="margin-left:auto;" class="custom-btn blue-btn">댓글달기</div>
+			<form name="commentForm" method="post" action="/pboard/reply/write" id="comment-write-form">
+				<input type="hidden" name="memberId" value="test"/>
+				<input type="hidden" name="pboardId" th:value="${param.no}" />
+				<input type="hidden" name="cate" th:value="${param.cate}" />
+				<textarea name="pboardReplyContent" maxlength="300" class="custom-input" rows="3" cols="3"></textarea>
+				<button style="margin-left:auto;" class="custom-btn blue-btn">댓글달기</button>
 			</form>
 		</div>
 	</div> 
@@ -72,15 +76,16 @@ layout:fragment="content"
 			let top = Math.floor((screen.height - height) / 2);
 			
 			let cbt = window.open(
-			  "/cbt",
+			  "/pboard/cbt?no="+new URLSearchParams(window.location.search).get('no'),
 			  "QuizWiki-CBT",
 			  "width="+width+", height="+height+", top="+top+", left="+left
 			);
-
-
+		
+		
 
 			/* cbt.postMessage(plist,"*"); */
 		}
 	</script>
+	
 </body>
 </html>

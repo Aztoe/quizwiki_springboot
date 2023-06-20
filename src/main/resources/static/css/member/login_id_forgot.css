@@ -103,7 +103,7 @@ hr{
 .login_tel{
 	width: 66.5%;
 }
-.login_name, .login_tel{
+.login_name, .login_tel, .login_num{
 	padding-bottom: 5%;
 	padding-top: 7%;
 }
@@ -173,6 +173,7 @@ hr{
 }
 .login__button:hover {
   background-color: black;
+  cursor: pointer;
 }
 .login__account, .login__signin, .login__signup {
   font-weight: 600;

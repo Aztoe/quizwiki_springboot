@@ -1,13 +1,18 @@
 package com.multi.quizwiki.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Alias("problem")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProblemDTO {
 	private int problem_id;
 	private int pboard_id;

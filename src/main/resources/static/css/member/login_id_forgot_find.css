@@ -247,7 +247,7 @@ hr{
     justify-self: center;
   }
    .login__register {
-    bottom: -13rem;
+    bottom: -13rem!important;
     justify-content: center;
   }
   
@@ -276,13 +276,13 @@ hr{
     margin-top: 0;
   }
   .login__register, .login__create {
-    left: -11rem;
+    left: -11rem!important;
   }
   .login__register {
-    bottom: -2rem;
+    bottom: -2rem!important;
   }
   .login__create {
-    bottom: -5.5rem;
+    bottom: -5.5rem!important;
   }
  
 }

@@ -1,0 +1,436 @@
+body{
+    background-color: #fff;
+    overflow-x: hidden;
+}
+
+.slide-deco{
+    width: 4800px;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left:-2400px;
+    transform: translateY(-50%);
+    justify-content: space-around;
+    animation: slide-deco-anim 30s linear infinite;
+    overflow: hidden;
+}
+.breath-effect{
+	animation: breath-opacity-anim 5s linear infinite;
+}
+.slide-deco svg{
+    width: 50px;
+    height: 50px;
+}
+.slide-deco svg:nth-child(odd){
+	fill: #2b5193b9;
+}
+.slide-deco svg:nth-child(even){
+	fill: #b7dffe;
+}
+
+@keyframes slide-deco-anim {
+    0%{
+        left: -2400px;
+    }
+    100%{
+        left: 100px;
+    }
+}
+@keyframes breath-opacity-anim {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: .8;
+    }
+	100%{
+		opacity: 1;
+	}
+}
+
+section{
+	width: 100%;
+}
+
+#main-banner-section{
+	min-height: 70vh;
+	background-image: url(/images/main/main_banner.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+	box-sizing: border-box;
+    padding: 30px 10px;
+	
+}
+
+#main-banner-section a{
+	text-decoration: none;
+}
+#main-banner-container{
+	width: 1200px;
+	margin:0 auto;
+	align-self: center;
+}
+
+#main-banner-title{
+	margin-bottom: 30px;
+}
+
+#main-banner-title h1{
+	font-family: "Esamanru";
+	color: white;
+	font-size: 64px;
+	text-shadow: 5px 5px #2b5293;
+	animation: breath-title-text 3s infinite;
+	padding-top:5px;
+}
+#main-banner-title h1::selection,h4::selection{
+	background-color: #0090b9;
+}
+
+@keyframes breath-title-text {
+	0%{
+		text-shadow: 5px 5px #000000;
+	}
+
+	50%{
+		text-shadow: 5px 5px #646464;
+	}
+
+	100%{
+		text-shadow: 5px 5px #000000;
+	}
+}
+
+#main-banner-title h4{
+	font-family: "Esamanru";
+	color: white;
+}
+
+
+
+
+#main-desc-section{
+	padding: 50px 0;
+	background-color:#f9f9f9
+}
+#main-desc-section h2{
+	font-family: "Esamanru";
+	color: rgb(135, 165, 255);
+	text-shadow: 3px 3px #dae7ff;
+	font-size: 24px;
+}
+#main-desc-section h4{
+	font-family: "Esamanru";
+	color: #494949;
+	font-size: 18px;
+	padding: 10px 0;
+}
+.desc-container{
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.desc-card{
+	width: 100%;
+	height: auto;
+}
+
+
+
+
+
+
+/* tabs */
+/* Individual tab styles */
+.tab-custom{
+	border-radius: 30px;
+	box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+}
+.tab-title{
+	font-family: "Esamanru";
+	text-decoration: none;
+}
+/*****************************/
+/* Shape */
+/*****************************/
+
+.tabs-style-shape {
+	max-width: 1200px;
+}
+
+.tabs-style-shape nav ul li {
+	margin: 0 3em;
+}
+
+.tabs-style-shape nav ul li:first-child {
+	margin-left: 0;
+}
+
+.tabs-style-shape nav ul li.tab-current {
+	z-index: 100;
+}
+
+.tabs-style-shape nav li a {
+	overflow: visible;
+	margin: 0 -3em 0 0;
+	padding: 0;
+	color: #373737;
+	font-weight: 500;
+}
+
+.tabs-style-shape nav li:first-child a span {
+	padding-left: 2em;
+	border-radius: 30px 0 0 0;
+}
+
+.tabs-style-shape nav li:last-child a span {
+	padding-right: 2em;
+	border-radius: 0 30px 0 0;
+}
+
+.tabs-style-shape nav li a svg {
+	position: absolute;
+	left: 100%;
+	margin: 0;
+	width: 3em;
+	height: 100%;
+	fill: #bdc2c9;
+}
+
+.tabs-style-shape nav li a svg:nth-child(2),
+.tabs-style-shape nav li:last-child a svg {
+	right: 100%;
+	left: auto;
+	-webkit-transform: scale3d(-1,1,1);
+	transform: scale3d(-1,1,1);
+}
+
+.tabs-style-shape nav li a span {
+	display: block;
+	overflow: hidden;
+	padding: 0.65em 0;
+	background-color: #bdc2c9;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.tabs-style-shape nav li a:hover span {
+	background-color: #2c85c1;
+}
+
+.tabs-style-shape nav li a:hover svg {
+	fill: #2CC185;
+}
+
+/* Make only shape clickable */
+.tabs-style-shape nav li a svg {
+	pointer-events: none;
+}
+
+.tabs-style-shape nav li a svg use {
+	pointer-events: auto;
+}
+
+.tabs-style-shape nav li.tab-current a span,
+.tabs-style-shape nav li.tab-current a svg {
+	-webkit-transition: none;
+	transition: none;
+}
+
+.tabs-style-shape nav li.tab-current a span {
+	background: #fff;
+}
+
+.tabs-style-shape nav li.tab-current a svg {
+	fill: #fff;
+}
+
+.tabs-style-shape .content-wrap {
+	background: #fff;
+}
+
+@media screen and (max-width: 58em) {
+	.tabs-style-shape nav ul {
+		display: block;
+		padding-top: 1.5em;
+	}
+	.tabs-style-shape nav ul li {
+		display: block;
+		margin: -1.25em 0 0;
+		-webkit-flex: none;
+		flex: none;
+	}
+	.tabs-style-shape nav ul li a {
+		margin: 0;
+	}
+	.tabs-style-shape nav ul li svg {
+		display: none;
+	}
+	.tabs-style-shape nav ul li a span {
+		padding: 1.25em 0 2em !important;
+		border-radius: 30px 30px 0 0 !important;
+		box-shadow: 0 -1px 2px rgba(0,0,0,0.1);
+		line-height: 1;
+	}
+	.tabs-style-shape nav ul li:last-child a span {
+	}
+	.tabs-style-shape nav ul li.tab-current {
+		z-index: 1;
+	}
+}
+/* tab basic */
+.tabs {
+	position: relative;
+	overflow: hidden;
+	margin: 0 auto;
+	width: 100%;
+	font-weight: 300;
+	font-size: 1.25em;
+}
+
+/* Nav */
+.tabs nav {
+	text-align: center;
+}
+
+.tabs nav ul {
+	position: relative;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: flex;
+	margin: 0 auto;
+	padding: 0;
+	max-width: 1200px;
+	list-style: none;
+	-ms-box-orient: horizontal;
+	-ms-box-pack: center;
+	-webkit-flex-flow: row wrap;
+	-moz-flex-flow: row wrap;
+	-ms-flex-flow: row wrap;
+	flex-flow: row wrap;
+	-webkit-justify-content: center;
+	-moz-justify-content: center;
+	-ms-justify-content: center;
+	justify-content: center;
+}
+
+.tabs nav ul li {
+	position: relative;
+	z-index: 1;
+	display: block;
+	margin: 0;
+	text-align: center;
+	-webkit-flex: 1;
+	-moz-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+}
+
+.tabs nav a {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	line-height: 2.5;
+}
+
+.tabs nav a span {
+	vertical-align: middle;
+	font-size: 0.75em;
+}
+
+.tabs nav li.tab-current a {
+	color: #2067c3;
+}
+
+.tabs nav a:focus {
+	outline: none;
+}
+
+/* Icons */
+.icon::before {
+	z-index: 10;
+	display: inline-block;
+	margin: 0 0.4em 0 0;
+	vertical-align: middle;
+	text-transform: none;
+	font-weight: normal;
+	font-variant: normal;
+	font-size: 1.3em;
+	font-family: 'stroke7pixeden';
+	line-height: 1;
+	speak: none;
+	-webkit-backface-visibility: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.icon-upload::before {
+	content: "\e68a";
+}
+.icon-tools::before {
+	content: "\e60a";
+}
+.icon-plane::before {
+	content: "\e625";
+}
+.icon-joy::before {
+	content: "\e6a4";
+}
+.icon-plug::before {
+	content: "\e69a";
+}
+.icon-home::before {
+	content: "\e648";
+}
+.icon-gift::before {
+	content: "\e652";
+}
+.icon-display::before {
+	content: "\e65e";
+}
+.icon-date::before {
+	content: "\e660";
+}
+.icon-config::before {
+	content: "\e666";
+}
+.icon-coffee::before {
+	content: "\e669";
+}
+.icon-camera::before {
+	content: "\e66f";
+}
+.icon-box::before {
+	content: "\e674";
+}
+
+/* Content */
+.content-wrap {
+	position: relative;
+}
+
+.content-wrap section {
+	display: none;
+	margin: 0 auto;
+	padding: 1em;
+	max-width: 1200px;
+	text-align: center;
+}
+
+.content-wrap section.content-current {
+	display: block;
+}
+
+.content-wrap section p {
+	margin: 0;
+	padding: 0.75em 0;
+	color: rgba(40,44,42,0.05);
+	font-weight: 900;
+	font-size: 4em;
+	line-height: 1;
+}

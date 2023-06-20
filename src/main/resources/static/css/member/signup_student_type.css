@@ -4,17 +4,22 @@
 	padding-left: 40px!important;
 }
 .myicon{
-	color: #6797f0; 
+	color: #5a49e3; 
 	font-size: 85px;
 	padding-left: 20px;
     margin-bottom: 20px;
 }
+.myicon:hover{
+	color: rgb(255, 224, 6);
+}
 .mybox{
 	margin-top: 1rem!important;
+	box-shadow: 0 8px 20px 0 #6797f0!important;
 	padding-left: 3.5rem!important;
 }
-.mybox:hover {
+.mybox:hover{
 	cursor: pointer;
-	box-shadow: 0 8px 20px 0 #6797f0;
+	box-shadow: 0 8px 20px 0 rgb(255, 224, 6)!important;/* rgb(255, 224, 6) 아조 밝오 */
 	transition: 0.5s;
+	
 }

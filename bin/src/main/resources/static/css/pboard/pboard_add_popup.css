@@ -1,0 +1,309 @@
+/*add_popup */
+#add_popup{
+	display: none;
+	position: fixed;
+	z-index:900;
+	width:100%;
+	height:100%;
+	left:0;
+	top:0;
+  	overflow: auto;
+  	animation: modal-open .4s;
+}
+
+@keyframes modal-open{
+	0%{
+		opacity:0;
+	}
+	
+	100%{
+		opacity:1;
+	}
+}
+
+#add_popup_bg{
+	position:absolute;
+	width:100%;
+	height:100%;
+	left:0;
+	top:0;
+	background-color: rgba(0, 0, 0, 0.6);
+	filter: blur(100px);
+	
+	z-index: 901;
+}
+
+/* form */
+
+#add_popup_form{
+	position:absolute;
+	width:80%;
+	height:fit-content;
+	top:50%;
+	left:50%;
+	padding: 30px 100px;
+	box-sizing: border-box;
+
+	background-color: #ebebeb;
+	border-radius: 10px;
+
+	transform: translate(-50%, -50%);
+	animation: modal-open2 .8s;
+	
+	z-index: 902;
+}
+
+@keyframes modal-open2{
+	0%{
+		opacity:0;
+	}
+	50%{
+		opacity:0;
+	}
+	
+	100%{
+		opacity:1;
+	}
+}
+
+.add_popup_title{
+	display: flex;
+	width: 100%;
+	height:100px;
+	font-family: "Esamanru";
+}
+.add_popup_title h1{
+	font-size: 48px;
+	align-self: center;
+}
+
+
+.add_popup_cbox{
+	align-self: center;
+	margin-left:auto;
+}
+
+#add_popup_form fieldset{
+	padding: 10px 10px;
+	height: 50px;
+	border: 2px dashed #919191;
+	display: flex;
+	justify-content: space-between;
+}
+
+.add_popup_cbox label{
+	cursor: pointer;
+}
+
+.add_popup_cbox i{
+	padding-right:3px;
+}
+
+.cbox-shifter{
+	width: 1px;
+	height: 100%;
+	background-color: rgba(131, 131, 131, 0.367);
+	margin: 0 5px;
+}
+
+input[type="radio"] {
+	display:none;
+}
+  
+input[type="radio"] + label span.round{
+	display:inline-block;
+	width: 16px;
+	height: 16px;
+	font-size: 0;
+	vertical-align: middle;
+	background: url("/images/pboard/check.png") no-repeat;
+	background-size: contain;
+	cursor:pointer;
+	margin-bottom:2.5px;
+}
+  
+input[type="radio"]:checked + label span.round {
+	background: url("/images/pboard/uncheck.png") no-repeat;
+	background-size: contain;
+}
+
+
+/* content */
+.add_popup_content{
+	width: 100%;
+	display: flex;
+}
+
+/* maker */
+.add_popup_maker{
+	width: 50%;
+	border-right: 2px dashed #919191;
+}
+
+
+.pmaker_item{
+	display: flex;
+	height: fit-content;
+	margin-top: 30px;
+}
+.add_popup_maker h4{
+	width: 15%;
+	align-self: center;
+	font-size: 12px;
+	text-align: left;
+	font-family: "Esamanru";
+}
+
+.custom-input{
+	width: 80%;
+	border-radius: 4px;
+	height: fit-content;
+	font-size: 18px;
+	font-family: "Pretendard";
+    border: none;
+    outline: none;
+    background-color: whitesmoke;
+
+	border-bottom: 2px dashed rgb(175, 175, 175);
+
+	transition: .5s;
+
+	
+}
+textarea.custom-input{
+	border: 1px dashed rgb(175, 175, 175);
+	resize: none;
+	border: 2px dashed rgb(175, 175, 175);
+}
+.custom-input[type=file]{
+	width:fit-content;
+}
+
+.custom-input:focus{
+	border-color: black;
+}
+
+/* preview */
+
+.add_popup_preview{
+	width:50%;
+	padding:15px;
+}
+.add_popup_preview h2{
+	font-size: 32px;
+	font-family: "Esamanru";
+	padding: 15px;
+}
+
+
+.problem_preview{
+	width: 100%;
+	border:3px dashed rgb(185, 185, 185);
+	padding:15px;
+	box-sizing: border-box;
+	font-family: "Pretendard";
+}
+
+.problem_print{
+	font-size:12px;
+	border: 1px solid rgb(90, 90, 90);
+	padding:12px;
+	margin: 15px 0;
+	background-color:whitesmoke;
+}
+
+
+/* 객관식 */
+.pmaker_answer_cbox{
+	align-self: center;
+}
+
+.add_popup_cbox label{
+	cursor: pointer;
+}
+
+.add_popup_cbox i{
+	padding-right:3px;
+}
+
+#pmaker_answer_list{
+	font-family: "Pretendard";
+	list-style-type: decimal;
+}
+#pmaker_answer_list li{
+	margin-top:10px;
+}
+
+
+
+
+
+/*  */
+
+.problem_answer_list{
+	padding:15px;
+	list-style-type: decimal;
+}
+.problem_answer_list li{
+	margin: 12px 0 0 15px;
+	list-style-type: decimal;
+}
+
+
+.add_popup_btnlist{
+	border-top: 2px dashed black;
+	display: flex;
+	margin-top: 30px;
+	justify-content: end;
+}
+
+.add-popup-btn{
+    align-self: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    font-family: "Esamanru";
+    font-size: 18px;
+	margin:10px;
+}
+
+.blue-btn{
+	background: #2b5293;
+}
+.blue-btn:hover{
+    background: white;
+    outline:3px solid #2b5293;
+    color: #2b5293;
+}
+.red-btn{
+	background: #932b2b;
+}
+.red-btn:hover{
+	background: white;
+    outline:3px solid #932b2b;
+    color: #932b2b;
+}
+
+
+@media (max-width: 1600px) {
+	.add_popup_preview{
+		display: none;
+	}
+	#add_popup_form{
+		width:100%;
+		height:fit-content;
+		padding: 0;
+		transform: translate(0, 0);
+		top:0; 
+    	left:0;
+	}
+	.add_popup_maker{
+		width:100%;
+		padding: 0;
+	}
+	
+}

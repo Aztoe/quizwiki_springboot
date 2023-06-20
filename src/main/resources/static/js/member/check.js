@@ -7,7 +7,7 @@ function checkSelectAll()  {
     = document.querySelectorAll('input[name="mkt_opt_sub"]:checked');
   // select all 체크박스
   const selectAll 
-    = document.querySelector('input[name="mkt_opt"]');
+    = document.querySelector('input[name="member_mkt_opt"]');
   
   if(checkboxes.length === checked.length)  {
     selectAll.checked = true;

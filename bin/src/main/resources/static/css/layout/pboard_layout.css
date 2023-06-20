@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+/* Banner Section */
+#banner-section{
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+    padding: 30px 0;
+
+    background-color: #f5f5f5;
+}
+
+
+/* Content Section */
+#content-section{
+    width: 100%;
+    padding: 30px 0;
+    background-color: #f5f5f5;
+}
+
+#content-wrap{
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+
+/* Aside */
+
+#double-aside{
+    padding: 30px 0 30px 15px;
+    width: 275px;
+    height: fit-content;
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, 0.2);
+
+    border: 2px #949494 dashed;
+}
+
+.aside-cate{
+    margin-bottom: 30px;
+}
+
+
+
+#aside-title{
+    font-family: "Esamanru";
+    font-size: 24px;
+}
+
+.aside-shifter{
+    width: 90%;
+    height: 1px;
+    border-bottom: 2px dashed rgb(136, 136, 136);
+    padding: 4px;
+    box-sizing: content-box;
+}
+
+.aside-nav li{
+    padding-top: 15px;
+}
+
+#content-section li a{
+    text-decoration: none;
+    font-family: 'Pretendard';
+    font-size: 14px;
+    padding: 5px;
+}
+
+.aside-nav li a {
+    color: #737373;
+}
+.aside-nav li a:link {
+    color: #737373;
+}
+.aside-nav li a:visited {
+    color: #737373;
+}
+.aside-nav li a:active {
+    color: #737373;
+}
+
+
+.aside-nav li a:hover {
+    
+    background-color: #447ad9;
+    border-radius: 3px;
+    color: #fff;
+}
+#nav-select{
+    background-color: #86aff8;
+    border-radius: 3px;
+    color: #fff;
+}
+#nav-select li a:link {
+    color: #fff;
+}
+#nav-select li a:visited {
+    color: #fff;
+}
+#nav-select li a:active {
+    color: #fff;
+}

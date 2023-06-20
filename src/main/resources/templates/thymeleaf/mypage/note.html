@@ -26,7 +26,7 @@
 							<span class="bl02">이하나님의 현재 오답노트</span>
 						</p>
 						<p>
-							<strong><em>0</em> 문제</strong>
+							<strong><em th:text="${notecount}">0</em> 개</strong>
 						</p>
 					</div>
 
@@ -87,8 +87,14 @@
 						</thead>
 
 						<tbody>
-							<tr>
-								<td colspan="4" class="empty_li">문제가 없습니다.</td>
+							<tr th:if="${notelist.size==0}">
+								<td colspan="4" class="empty_li">오답노트가 없습니다.</td>
+							</tr>
+							<tr th:each="note:${notelist}" th:unless="${notelist.size==0}">
+								<td><span th:text="${note.note_id}"></span></td>
+								<td><span th:text="${note.solv_title}"></span></td>
+								<td><span th:text="${note.solv_reg_date}"></span></td>
+								<td><span th:text="${note.solv_open}"></span></td>
 							</tr>
 						</tbody>
 					</table>

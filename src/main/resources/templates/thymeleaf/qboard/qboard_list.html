@@ -11,7 +11,6 @@ layout:fragment="content"><head>
 <link rel="stylesheet"  th:href="@{/css/qboard/style.css}" />
 <link rel="stylesheet"  th:href="@{/css/qboard/bootstrap.css}" />
 
-<script type="text/javascript" src="/js/qboard/qna.js"></script>
 <!-- <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 <script
@@ -91,7 +90,8 @@ layout:fragment="content"><head>
 							<li class="active" style="font-size: 16px;"><a href="#">국어</a></li>
 							<li class="active"><a href="#">수학</a></li>
 							<li class="active"><a href="#">영어</a></li>
-						</ul>
+							<li><a href="#">전체</a> </li>
+						</ul> 
 					
 			<form class="navbar-form navbar-left" action="/">
 							<div class="input-group">
@@ -109,48 +109,48 @@ layout:fragment="content"><head>
 
 				<div id="content_body">
 				<ul class="question-list">
-  <li class="question-container">
-    <a class="e-click-post" href="../qboard/read">
+  <li class="question-container" th:each="qboard :${qboardlist}">
+    <a class="e-click-post" 	th:href="@{/quizwiki/qboard/read.do(qboard_id=${qboard.qboard_id})}">
       
     <div class="question">
       <div class="question__info">
         <div class="question__title">
           
-          <h3 class="title__text">
+          <h3 class="title__text" th:text="${qboard.title}">
           이 문제는 어떻게  풀어야 하나요?
             <span class="infd-icon title__icon">
               
             </span>
           </h3>
         </div>
-        <p class="question__body">
+        <p class="question__body" th:text="${qboard.content}" >
           풀이 방법좀 알려주세여
         </p>
         
         <div class="question__info-footer">
           <div class="question__info-detail">
-            <span class="question__info-user-name">shj</span>
+            <span class="question__info-user-name" th:text="${qboard.member_id}">shj</span>
             <span>&nbsp;·&nbsp;</span>
             <span>32분 전</span>
             
             
-          </div>
+          </div>	
           <div class="question__info-userData ">
             <dl>
               <dt class="visually-hidden">좋아요</dt>
-              <dd class="comment__count">
+              <dd class="comment__count" >
                 <i class="fa-regular fa-heart"></i>
-                <span class="text">0</span>
+                <span class="text" th:text="${qboard.like_Count}">0</span>
               </dd>
               <dt class="visually-hidden">조회수</dt>
-              <dd class="view__count">
+              <dd class="view__count" >
                 <i class="fa-regular fa-eye"></i>
-                <span class="text">1</span>
+                <span class="text" th:text="${qboard.view_Count}">1</span>
               </dd>
               <dt class="visually-hidden">댓글</dt>
               <dd class="comment__count">
-                <i class="fa-regular fa-comment"></i>
-                <span class="text">0</span>
+                <i class="fa-regular fa-comment" ></i>
+                <span class="text" th:text="${qboard.comment_Count}">0</span>
               </dd>
             </dl>
           </div>
@@ -160,56 +160,7 @@ layout:fragment="content"><head>
     </a>
   </li>
 
-  <li class="question-container">
-    <a class="e-click-post" href="/chats/891755/초기-스타트업-팀-빌딩이-잘못된-거-같을-때-어떻게-하시나요">
-      
-    <div class="question">
-      <div class="question__info">
-        <div class="question__title">
-          
-          <h3 class="title__text">
-            영어 6월 모의고사 21 번
-            <span class="infd-icon title__icon">
-              
-            </span>
-          </h3>
-        </div>
-        <p class="question__body">
-        너무 어려워요 잘 모르겠어요
-        </p>
-        
-        <div class="question__info-footer">
-          <div class="question__info-detail">
-            <span class="question__info-user-name">영어싫어</span>
-            <span>&nbsp;·&nbsp;</span>
-            <span>55분 전</span>
-            
-            
-          </div>
-          <div class="question__info-userData flex-column">
-            <dl>
-              <dt class="visually-hidden">좋아요</dt>
-              <dd class="comment__count">
-                <i class="fa-regular fa-heart"></i>
-                <span class="text">0</span>
-              </dd>
-              <dt class="visually-hidden">조회수</dt>
-              <dd class="view__count">
-                <i class="fa-regular fa-eye"></i>
-                <span class="text">1</span>
-              </dd>
-              <dt class="visually-hidden">댓글</dt>
-              <dd class="comment__count">
-                <i class="fa-regular fa-comment"></i>
-                <span class="text">0</span>
-              </dd>
-            </dl>
-          </div>
-        </div>
-      </div>
-    </div>
-    </a>
-  </li>
+ 
   
   </ul>
 

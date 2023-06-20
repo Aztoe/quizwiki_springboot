@@ -23,14 +23,14 @@
 	<div id="pboard-write">
 		<div class="pboard-write-outer">
 			<div id="pboard-title">
-				<span class="title-desc">문제게시판 글쓰기 <span
-					class="title-subject">국어 (쓰기)</span></span>
+				<span class="title-desc">나만의 문제집 글쓰기<span
+					class="title-subject">[[${pboardCateList[param.cate[0]-1].pboardCateName}]]</span></span>
 
 			</div>
 
 			<form id="editorform" name="editorform" action="POST">
 				<div>
-					<input id="pboard-title-input" placeholder="글 제목을 입력해주세요."
+					<input maxlength="30" id="pboard-title-input" placeholder="글 제목을 입력해주세요. (최대 30자)"
 						name="title" type="text" />
 				</div>
 				<textarea name="se2" id="se2" rows="10" cols="100"></textarea>
@@ -63,7 +63,7 @@
 				<div class="hr-shifter"></div>
 
 				<div class="btn-list">
-					<div id="writebtn" class="ui-btn">게시하기</div>
+					<div id="writebtn" class="ui-btn" th:text="${state}=='e' ? '수정하기' : '게시하기'">게시하기</div>
 				</div>
 			</form>
 		</div>
@@ -106,6 +106,17 @@
 
 				<div class="add_popup_maker">
 					<div class="pmaker_item">
+						<h4>문제 분류:</h4>
+						<div class="popup-input-wrap">
+							<select name="cate" class="custom-input">
+								<th:block th:each="cate : ${problemCateList}">
+									<option th:value="${cate.problemCateId}" th:text="${cate.problemCateName}"></option>
+								</th:block>
+							</select> 
+						</div>
+					</div>
+				
+					<div class="pmaker_item">
 						<h4>문제 내용:</h4>
 						<div class="popup-input-wrap">
 							<input maxlength="200" name="content" class="custom-input" type="text" />
@@ -116,7 +127,7 @@
 					<div class="pmaker_item">
 						<h4>지문:</h4>
 						<div class="popup-input-wrap">
-							<textarea maxlength="3000" name="print" rows="3" class="custom-input"></textarea>
+							<textarea wrap="hard" maxlength="3000" name="print" rows="3" class="custom-input"></textarea>
 							<p class="input-label"><span class="input-label-count">0</span>/3000</p>
 						</div>
 					</div>
@@ -188,8 +199,8 @@
 						
 						<div class="problem_print">
 							<div id="preprintfile" class="preview-printfile"></div>
-							<p id="preprint">
-                            </p>
+							<pre id="preprint">
+                            </pre>
 						</div>
 
 						<ul id="pre-answer-list" class="problem_answer_list mp-items">
@@ -229,31 +240,37 @@
 			bUseVerticalResizer : false,
 
 			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-			bUseModeChanger : false
+			bUseModeChanger : false,
+			//페이지에서 벗어날떄 이벤트핸들러 밀기
+			fOnBeforeUnload : function(){}
 		}
 	});
 	
 	</script>
 	<!-- se2 end -->
 
-	<script type="text/javascript">
+	<script type="text/javascript" th:inline="javascript">
 	
-	/*
-	todolist:
-		게시하기 ajax로 데이터 정리해서 서버에 보낸뒤
-		
-*/
-
 //■■■■■■■■■■■■■■■■■■■■initialized■■■■■■■■■■■■■■■■■■■■
+
+			
+window.onbeforeunload = ()=>{
+	return '';
+}
+
 const editorform = document.getElementById("editorform");
 let addform = document.getElementById("add_popup_form");
 
+let state = /*[[${state}]]*/'';
 
 /* plist 현재 작성중인 게시글에서 문제list 변수 초기화*/
 // write가 아닌 edit일때는 데이터를 받아와서 동기화처리 해야함.
-let problemList = [
-	
-];
+let problemList = [];
+
+let editList;
+if(state == "e"){
+	onStateEdit();
+}
 
 /* 문제추가 폼에서 보여지는 문제 인덱스 초기화 */
 let curIndex = problemList.length;
@@ -283,53 +300,91 @@ syncProblemList();
 //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 
-
-
-
-
-
-
 /*■■■■■■■■■■■■■■■■■■■■UI EVENT HANDLER■■■■■■■■■■■■■■■■■■■■*/
 /*========================게시하기 버튼==========================  */
 
 
 
 $("#writebtn").on("click",()=>{
+	let url = (state =='e') ? '/pboard/edit' : '/pboard/write';
+	if(editorform.title.value.trim().length <= 0){
+		Swal.fire({
+		      icon: 'error',
+		      title: "제목이 없습니다.",
+		      text: "제목을 입력해주세요.",
+		      confirmButtonColor: '#3085d6',
+	  	  confirmButtonText: '닫기',
+	  	});
+		return;
+	}
+	
+	if(problemList.length <= 0){
+		Swal.fire({
+		      icon: 'error',
+		      title: "문제가 없습니다.",
+		      text: "하나 이상의 문제가 필요합니다.",
+		      confirmButtonColor: '#3085d6',
+	  	  confirmButtonText: '닫기',
+	  	});
+		return;
+	}
+	
 	const formData = new FormData();
+	const cate = new URLSearchParams(location.search).get('cate')[0];
 	
-	const problemData = problemList.map(({choise,printfile, ...rest})=>rest);
-	
-	const sendData = {
-		pboard:{
-			memberId:"park", // todo 세션에서 멤버아이디
-			pboardCate:1, // todo pboardCate 만들고나서 추가
-			title:editorform.title.value,
-			content:se2_getIR()
-		},
-		problem:problemData
-	};
-	
-	const printfileData = problemList.map(obj=>{
-		return {printfile: obj.printfile};
+	const problemData = problemList.map(({problemChoise,problemPrintfile, ...rest})=>rest);
+	problemData.forEach((e,idx)=>{
+		e.problemIndex = idx;
 	});
 	
-	formData.append("sendData", new Blob([JSON.stringify(sendData),{type:"application/json"}]));
+	const problemChoiseList = problemList.map(({problemChoise})=>problemChoise);
+	
+	const printfileData = problemList.map((obj,idx)=>{
+		return {problemPrintfile: obj.problemPrintfile, index:idx};
+	});
+	
+	const printFileArr = [];
 	
 	printfileData.forEach((f)=>{
-		formData.append("printfile", f.printfile);
+		if(f.problemPrintfile == null) return;
+		formData.append("printfile", f.problemPrintfile);
+		printFileArr.push(f.index);
 	})
-	
-	
-	
+	const sendData = {
+		pboard:{
+			memberId:"test", // todo 세션에서 멤버아이디
+			pboardCateId:cate,
+			pboardTitle:editorform.title.value,
+			pboardContent:se2_getIR(),
+			pboardStatus:"r"
+		},
+		problem:problemData,
+		problemChoiseList:problemChoiseList,
+		printfileArr:printFileArr
+		
+	};
+	if(state == 'e'){
+		sendData.pboard.pboardId = new URLSearchParams(window.location.search).get('no');
+		console.log(sendData.pboard.pboardId);
+	}
+		
+	formData.append("sendData", new Blob([JSON.stringify(sendData),{type:"application/json"}]));
 	//ajax post
 	$.ajax({
 		type:"post",
-		url:'/pboard/write',
+		url:url,
 		data:formData,
 		contentType: false,
       	processData: false,
       	cache: false,
       	enctype: 'multipart/form-data',
+      	
+      	success:(res)=>{
+      		window.onbeforeunload = (e) =>{
+      			e.preventDefault();
+      		}
+      		window.location.replace("/pboard/read/?cate="+cate+"&no="+res);
+      	},
 		
 	});//ajax end
 });//on end
@@ -364,7 +419,8 @@ $(problemRegbtn).on("click", ()=>{
 		addform.printfile.files[0],
 		choise,
 		answer,
-		addform.desc.value
+		addform.desc.value,
+		addform.cate.value
 	);
 	/* close form */
 	
@@ -391,6 +447,7 @@ plistAddBtn.addEventListener("click", ()=>{
 /* plist-add-btn end. */
 
 /* add-popup-close (문제 추가 팝업 닫기 버튼)*/
+
 let addPopupCloseBtn = document.getElementById("add-popup-close");
 addPopupCloseBtn.addEventListener("click", ()=>{
 	Swal.fire({
@@ -499,7 +556,54 @@ $(addform.printfile).on("input" , function(){
 
 
 /*■■■■■■■■■■■■■■■■■■■■ FUNCTION ■■■■■■■■■■■■■■■■■■■■*/
-  
+//on state edit
+async function convertURLtoFile(url,filename){
+  const response = await fetch(url);
+  const data = await response.blob();
+  const metadata = { type: data.type };
+  return new File([data], filename, metadata);
+};
+			
+			
+async function onStateEdit() {
+	$.ajax({
+	    type: "post",
+	    url: '/get/pboard',
+	    data: { no: new URLSearchParams(window.location.search).get('no') },
+	    success: async (res) => {
+	    editList = res;
+	    editorform.title.value = editList.pboardTitle;
+	    editorform.se2.innerHTML = editList.pboardContent;
+        
+	    problems = await Promise.all(editList.problemList.map(async (e) => {
+	        let choise = await Promise.all(e.problemChoiseList.map(async (c) => c.problemChoiseContent
+        ));
+		
+        let printfile = null;
+	    if(e.problemFileList.length>0){
+	    	printfile = await convertURLtoFile("/printfile/find/"+e.problemId, e.problemFileList[0].printfileOrigin);
+	    }
+			
+	        return {
+	          problemType: e.problemType,
+	          problemContent: e.problemContent,
+	          problemPrint: e.problemPrint,
+	          problemAnswer: e.problemAnswer,
+	          problemDesc: e.problemDesc,
+	          problemCateId: e.problemCateId,
+	          problemChoise: choise,
+	          problemPrintfile: await printfile,
+	        };
+      }));
+	
+	      problemList = problems;
+	      syncProblemList();
+	      
+	    },
+  });
+}
+
+
 //smartEditor2 내용가져오기
 function se2_getIR(){
 	return oEditors.getById["se2"].getIR();
@@ -616,7 +720,7 @@ function showPrintFile(src){
 		window.open(this.src);
 	}); */
 	prePrintFile.appendChild(image);
-	prePrintFile.style.display = "block";
+	prePrintFile.style.display = "flex";
 }
 
 //============add form 리셋=============================
@@ -664,6 +768,9 @@ function resetForm(){
     let preAnswerListchildren = $(preAnswerList).children();
     preAnswerListchildren.slice(0,3).text("");
     preAnswerListchildren.slice(2,5).remove();
+    
+    /* 분류 초기화 */
+    addform.cate.value = 0;
 }
 
 //=========plist 객체와 테이블 싱크맞추기===================
@@ -683,12 +790,12 @@ function syncProblemList(){
 		let typeTd = document.createElement("td");
 		typeTd.classList.add("plist-item-no");
 		typeTd.classList.add("plist-right-border");
-		typeTd.textContent= pro.type=="s" ? '주관식' : '객관식';
+		typeTd.textContent= pro.problemType=="s" ? '주관식' : '객관식';
 
 		let content = document.createElement("td");
 		content.classList.add("plist-item-content");
 		content.classList.add("plist-right-border");
-		content.textContent=pro.content;
+		content.textContent=pro.problemContent;
 
 		let btnTd = document.createElement("td");
 		btnTd.classList.add("plist-item-no");
@@ -745,37 +852,41 @@ function problemEdit(el){
 	let current = problemList[idx];
 	
 	//타입별 분기처리를 위해 캐싱
-	let ptype = current.type;
+	let ptype = current.problemType;
 	
 	//타입 동기화
 	addform.type.value = ptype;
 	
 	//문제 내용 동기화
-	addform.content.value = current.content;
+	addform.content.value = current.problemContent;
 	$(addform.content).trigger("input");
 	
 	//지문 동기화
-	addform.print.value = current.print;
+	addform.print.value = current.problemPrint;
 	$(addform.print).trigger("input");
 	
 	//지문 파일 동기화
-	if(current.printfile){//지문 파일이 존재하는경우 
-		const dt = new DataTransfer();
-		dt.items.add(current.printfile);
-		addform.printfile.files = dt.files
+	if(current.problemPrintfile){//지문 파일이 존재하는경우 
+		if(current.problemPrintfile instanceof File){
+			const dt = new DataTransfer();
+			dt.items.add(current.problemPrintfile);
+			addform.printfile.files = dt.files
+		}else{
+			
+		}
 	}
 	$(addform.printfile).trigger("input");
 	
 	//해설 동기화
-	addform.desc.value = current.desc;
+	addform.desc.value = current.problemDesc;
 	$(addform.desc).trigger("input");
 	
 	//ptype에 따라 분기, 선택지(객관식) 정답 동기화
 	if(ptype=="s"){
-		addform.spanswer.value = current.answer;
+		addform.spanswer.value = current.problemAnswer;
 		$(addform.spanswer).trigger("input");
 	}else{
-		let choise = current.choise;
+		let choise = current.problemChoise;
 		let diff = choise.length - 2;
 		for(let i = 0; i<diff; i++){
 			makeChoise();
@@ -795,8 +906,10 @@ function problemEdit(el){
 			input.trigger("input");
 		});
 		
-		addform.answer.value = current.answer;
+		addform.answer.value = current.problemAnswer;
 	}
+	
+	addform.cate.value = current.problemCateId;
 
 	openAddForm();
 	
@@ -956,16 +1069,17 @@ function syncChoise(el){
 }
 
 // 문제 객체 만들어서 문제리스트에 push
-function makeProblem(type,content,print,printfile,choise,answer,desc){
+function makeProblem(type,content,print,printfile,choise,answer,desc,problemcate){
 	
 	let p = {};
-	p.type=type;
-	p.content=content;
-	p.print = print;
-	p.printfile = printfile;
-	p.choise = choise;
-	p.answer = answer;
-	p.desc = desc;
+	p.problemType=type;
+	p.problemContent=content;
+	p.problemPrint = print;
+	p.problemPrintfile = printfile;
+	p.problemChoise = choise;
+	p.problemAnswer = answer;
+	p.problemDesc = desc;
+	p.problemCateId = problemcate;
 	
 	if(!checkRequire()){
 		return false;

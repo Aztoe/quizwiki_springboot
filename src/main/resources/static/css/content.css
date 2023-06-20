@@ -73,12 +73,12 @@ a {text-decoration: none  !important;}
 
 *:focus {outline: none !important;}
 
-#nscoach-wrapper {min-width: 1200px;}
-#nscoach-wrapper h2 {font-size: 74px;}
-#nscoach-wrapper h3 {}
-#nscoach-wrapper h4 {font-size: 55px;}
-#nscoach-wrapper h5 {font-size: 44px;}
-#nscoach-wrapper h6 {font-size: 35px;}
+#quizwiki-wrapper {min-width: 1200px;}
+#quizwiki-wrapper h2 {font-size: 74px;}
+#quizwiki-wrapper h3 {}
+#quizwiki-wrapper h4 {font-size: 55px;}
+#quizwiki-wrapper h5 {font-size: 44px;}
+#quizwiki-wrapper h6 {font-size: 35px;}
 
 .section_cont {}
 .inner_cont {position: relative; width: 1200px; margin: 0 auto;}
@@ -186,8 +186,8 @@ textarea:placeholder {color: #5a5a5a;}
 .drop_directMenu .menu_list .link_bnts {margin-bottom: 10px;}
 .drop_directMenu .menu_list .link_bnts a {width: 135px; height: 40px; color: #fff; text-align: center; line-height: 40px; font-size: 13px;font-weight: 300; border-radius: 5px; margin-right: 5px;}
 .drop_directMenu .menu_list .link_bnts a.my_contentsRoom {background: #03ab9a; }
-.drop_directMenu .menu_list .link_bnts a.nscoach_introVideo {background: #099474; }
-.drop_directMenu .menu_list .link_bnts a.nscoach_inquiry {background:#000}
+.drop_directMenu .menu_list .link_bnts a.quizwiki_introVideo {background: #099474; }
+.drop_directMenu .menu_list .link_bnts a.quizwiki_inquiry {background:#000}
 .drop_directMenu .rcmd_ai {width: 560px; padding-right: 50px;}
 .drop_directMenu .rcmd_ai dl {}
 .drop_directMenu .rcmd_ai dl dt::before {background: url('/_img/resource/ai_bl.png') no-repeat center; width: 41px; height: 31px; content: ''; display: inline-block; vertical-align: bottom;}

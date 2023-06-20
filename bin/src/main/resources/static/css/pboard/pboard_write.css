@@ -1,0 +1,183 @@
+#pboard-title{
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    margin-bottom:30px;
+}
+
+.title-desc{
+    font-family: "Esamanru";
+    font-size: 32px;
+}
+.title-subject{
+    font-family: "Esamanru";
+    font-size: 16px;
+    color:#979797;
+}
+.title::selection{
+    background-color: #006407;
+}
+
+
+
+
+
+
+
+/* write */
+#pboard-write{
+    width: 880px;
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, 0.2);
+    padding: 30px 0 30px 15px;
+
+    border: 2px #949494 dashed;
+}
+
+.pboard-write-outer{
+	width:90%;
+	margin:0 auto;
+}
+
+
+#editor-form{
+	margin: 0 auto;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+}
+
+#pboard-title-input{
+	width: 100%;
+    height: 40px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border: 1px solid #dfdfdf;
+    box-sizing: border-box;
+    padding: 0 15px;
+    font-size: 14px;
+    color: #212121;
+}
+
+#editor-form #smart_editor2{
+	width: 100%;
+}
+
+.hr-shifter{
+    width: 100%;
+    height: 1px;
+    border-bottom: 2px dashed rgb(207 207 207);
+    box-sizing: content-box;
+    margin: 15px auto;
+}
+
+/* BTN */
+.btn-list{
+	width:100%;
+	display:flex;
+}
+
+.ui-btn{
+    align-self: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    background: #2b5293;
+    text-align: center;
+    color: white;
+    font-family: "Esamanru";
+    font-size: 18px;
+
+    margin-left: auto;
+}
+
+.ui-btn:hover{
+    background: white;
+    outline:3px solid #2b5293;
+    color: #2b5293;
+
+}
+
+
+/* drag */
+.picked-item{
+	outline: 2px dashed yellow;
+}
+/* drag */
+
+/* problem maker */
+#pmaker-area{
+	width:100%;
+}
+
+#pmaker-desc-container{
+	display: flex;
+}
+
+#pmaker-area h1{
+	font-family: "Esamanru";
+    font-size: 21px;
+}
+#pmaker-area h6{
+	font-family: "Esamanru";
+    font-size: 12px;
+    color:#979797;
+}
+
+
+.plist-item-table{
+	margin: 15px 0;
+	width:100%;
+    padding: 30px 5px;
+    border-radius: 4px;
+    font-family: "Pretendard";
+}
+
+.plist-item-table thead{
+	background: #62b989;
+}
+
+.plist-item-table thead tr{
+	border-bottom: 3px solid #3d8556;
+	color: #a3e0be;
+	font-weight: bold;
+}
+.plist-item-table tbody tr:nth-child(odd){
+	background: #E5F9DB;
+}
+.plist-item-table tbody tr:nth-child(even){
+	background: #A0D8B3;
+}
+
+.plist-item-table tbody tr{
+	border-bottom: 2px dashed #8fdb86;
+	color: black;
+}
+
+.plist-right-border{
+	border-right : 2px dotted #3d85564f;
+}
+
+.plist-item-no{
+	width:8%;
+	padding:10px 1%;
+	text-align: center;
+}
+.plist-item-type{
+	width:8%;
+	padding:10px 1%;
+}
+.plist-item-content{
+	width:68%;
+	padding:10px 1%;
+	
+}
+.plist-item-edit{
+	width:8%;
+	padding:10px 1%;
+}
+

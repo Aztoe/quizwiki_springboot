@@ -24,16 +24,16 @@
 						<div class="write_form">
 							<dl>
 								<dt>제목</dt>
-								<p>세제곱근으로 되어있네요</p>
+								<p><span th:text="${wronganser.inqury_title}"></span></p>
 							</dl>
 							<dl>
 								<dt>작성자</dt>
-								<p>aaa212188</p>
+								<p><span th:text="${wronganser.member_id}"></span></p>
 							</dl>
 							<dl id="otoContent">
 								<dt>내용</dt>
-								<dd >오늘 문제 질이 왜이렇나요? 쓰레기네요ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-								
+								<dd >
+									<span th:text="${wronganser.inqury_content}"></span>
 								</dd>
 							</dl>
 							<dl>
@@ -51,9 +51,8 @@
 						<div class="write_form">
 							<dl></dl>
 							<dl>
-								<dd>안녕하십니까 고객님. 오답 문항에 대한 신고가 접수 되었습니다.
-								빠른 시일 내에 답변 수정하도록 하겠습니다. 항상 저희 사이트를 이용해주셔서 감사하고
-								이런 일이 반복되지 않도록 더욱 주의하는 퀴즈위키 되도록 노력하겠습니다.
+								<dd >
+									<span th:text="${inquryreply.inqury_reply_content}"></span>
 								<dd>
 							</dl>
 						</div>

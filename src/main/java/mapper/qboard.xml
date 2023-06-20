@@ -4,19 +4,31 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.multi.quizwiki.qboard">
   <!--게시물 등록  -->
-  	<insert id="insert" parameterType="qboard">
-  		insert into qboard VALUES (#{memberId}, #{title}, #{content},now(), null, #{showCount}, #{likeCount} )
-  	</insert>
-  
-<!--   <select id="selectBoardDetail" parameterType="int" resultType="">
+  	<insert id="insert" parameterType="qboard" useGeneratedKeys="true" keyProperty="qboard_id">
+    INSERT INTO qboard 
+    VALUES (#{qboard_id}, #{member_id},#{category},#{title}, #{content}, now(),null,0,0,0)
+</insert>
+  <!-- 게시글 상세정보조회 -->
+  <select id="findById" parameterType="Long" resultType="qboard">
   	select * from qboard where qboard_id =#{qboard_id}
   	
-  </select>
-  
-  <select id="selectall" resultType="QboardDTO">
-  	
-  
-  </select> -->
-  
+  </select> 
+ <!-- 게시글 리스트 -->
+  <select id="selectqboardlist" resultType="qboard" parameterType="qboard">
+  		select * from qboard ORDER BY regdate DESC
+  <!-- 게시글 수정  -->
+  </select> 
+   <update id="update" parameterType="qboard">
+   		update qboard set editDate = now() 
+   						,title =#{title}
+   						,content=#{content}
+   						,member_id=#{member_id}
+   			where  
+   				qboard_id =#{qboard_id}
+   </update>
+	<!--  게시글 삭제 -->
+	<delete id="deleteById" parameterType="long" >
+			delete from qboard where qboard_id=#{qboard_id}
+	</delete>
   
   </mapper>

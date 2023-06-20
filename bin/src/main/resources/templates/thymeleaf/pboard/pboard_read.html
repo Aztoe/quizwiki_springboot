@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{/layout/pboard_layout}"
+layout:fragment="content"
+>
+<head>
+<meta charset="UTF-8">
+<title>Quiz Wiki</title>
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/css/pboard/pboard_read.css" />
+
+</head>
+<body>
+	<!-- pboard_read -->
+	<div id="pboard-read">
+	<div class="pboard-outer">
+		<div id="pboard-title">
+			<span class="title-subject">6월 모의고사</span>
+			
+			<div class="pboard-info">
+				<p class="pboard-info-author"><i class="fa-solid fa-person"></i>홍길동</p>
+				<div class="ma-left">
+					<p class="pboard-info-view"><i class="fa-solid fa-eye"></i>22</p>
+					<p class="pboard-info-like"><i class="fa-solid fa-thumbs-up"></i>42</p>
+					<p class="pboard-info-regdate"><i class="fa-solid fa-calendar-days"></i>2023-05-29</p>
+				</div>
+			</div>
+		</div>
+		
+		<div id="pboard-read-content">
+			<p>게시글 내용</p>
+		</div>
+		
+		<div class="custom-btn-list">
+			<div class="custom-btn blue-btn"><i class="fa-solid fa-thumbs-up"></i>추천하기</div>
+			<div onclick="openCBT()" class="custom-btn green-btn"><i class="fa-solid fa-pen"></i>문제 풀어보기</div>
+		</div>
+		
+		<div class="comment-area">
+			<div class="comment-desc"><p>댓글 <span>1</span></p></div>
+			<ul class="comment-list">
+				<li class="comment-list-item">
+					<div class="comment-list-title">
+						<p class="comment-author">김길동</p>
+						<p class="comment-regdate">2023-05-29 7시 48분</p>
+					</div>
+					<div class="comment-list-content">안녕하세요. 김길동입니다.</div>
+				</li>
+			</ul>
+			
+			<form id="comment-write-form">
+				<textarea class="custom-input" rows="3" cols="3"></textarea>
+				<div style="margin-left:auto;" class="custom-btn blue-btn">댓글달기</div>
+			</form>
+		</div>
+	</div> 
+		
+		
+	</div>
+	<!-- pboard_read end -->
+	
+	
+	<script type="text/javascript">
+		function openCBT(){
+			/* let plist = []; */
+			let width = Math.floor(screen.width * 0.9);
+			let height = Math.floor(screen.height * 0.9);
+			let left = Math.floor((screen.width - width) / 2);
+			let top = Math.floor((screen.height - height) / 2);
+			
+			let cbt = window.open(
+			  "/cbt",
+			  "QuizWiki-CBT",
+			  "width="+width+", height="+height+", top="+top+", left="+left
+			);
+
+
+
+			/* cbt.postMessage(plist,"*"); */
+		}
+	</script>
+</body>
+</html>

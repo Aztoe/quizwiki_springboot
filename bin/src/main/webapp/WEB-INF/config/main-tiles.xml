@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="singleTemplate" template="/WEB-INF/layout/single.jsp">
+		<put-attribute name="header" value="/WEB-INF/include/header.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/mainpage/mainpage.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/include/footer.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="doubleBannerTemplate" template="/WEB-INF/layout/double_banner.jsp">
+		<put-attribute name="header" value="/WEB-INF/include/header.jsp"></put-attribute>
+		<put-attribute name="banner" value="/WEB-INF/pboard/pboard_banner.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/pboard/pboard_list.jsp"></put-attribute>
+		<put-attribute name="aside" value="/WEB-INF/pboard/pboard_aside.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/include/footer.jsp"></put-attribute>
+	</definition>
+	
+		<definition name="qboardTemplate" template="/WEB-INF/layout/qboard.jsp">
+		<put-attribute name="header" value="/WEB-INF/include/header.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/board/qboard/qboard_list.jsp"></put-attribute>
+		<put-attribute name="aside" value="/WEB-INF/pboard/pboard_aside.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/include/footer.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="contentTemplate" template="/WEB-INF/layout/content_only.jsp">
+		<put-attribute name="content" value="/WEB-INF/member/login.jsp" />
+	</definition>
+	
+	<definition name="mypageTemplate" template="/WEB-INF/layout/mypage_layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/include/header.jsp"></put-attribute>
+		<put-attribute name="banner" value="/WEB-INF/mypage/mypage_header.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/mypage/mycontentroom.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/include/footer.jsp"></put-attribute>
+	</definition>
+	
+</tiles-definitions>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

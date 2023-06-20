@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<!-- 로그인 -->
+	<definition name="/login" extends="contentTemplate">
+		<put-attribute name="content" value="/WEB-INF/member/login.jsp" />
+	</definition>
+	<!-- 회원가입 -->
+	<definition name="/signup" extends="contentTemplate">
+		<put-attribute name="content" value="/WEB-INF/member/signup.jsp" />
+	</definition>
+	<!-- 로그인 - id 찾기 -->
+	<definition name="/find_id" extends="contentTemplate">
+		<put-attribute name="content" value="/WEB-INF/member/login_id_forgot.jsp" />
+	</definition>
+	<!-- 로그인 - pass 찾기 -->
+	<definition name="/find_pass" extends="contentTemplate">
+		<put-attribute name="content" value="/WEB-INF/member/login_pass_forgot.jsp" />
+	</definition>
+	<!-- 로그인 - id 찾기 - id 찾기 -->
+	<definition name="/find_forgot_id" extends="contentTemplate">
+		<put-attribute name="content" value="/WEB-INF/member/login_id_forgot_find.jsp" />
+	</definition>
+	<!-- 로그인 - pass 찾기 - pass 찾기 -->
+	<definition name="/find_forgot_pass" extends="contentTemplate">
+		<put-attribute name="content" value="/WEB-INF/member/login_pass_forgot_find.jsp" />
+	</definition>
+</tiles-definitions>
+
+
+

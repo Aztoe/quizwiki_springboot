@@ -39,11 +39,14 @@
 				</thead>
 
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>세제곱으로 되어있네요</td>
-						<td>2023-06-12</td>
-						<td>O</td>
+					<tr th:if="${inqurylist.size==0}">
+						<td colspan="6" class="empty_li">오답신고가 없습니다.</td>
+					</tr>
+					<tr th:each="inqury:${inqurylist}" th:unless="${inqurylist.size==0}">
+						<td><span th:text="${inqury.inqury_id}"></span></td>
+						<td><a th:text="${inqury.inqury_title}" th:href="@{/mypage/wronganser(inqury_id=${inqury.inqury_id})}"></a></td>
+						<td><span th:text="${inqury.inqury_date}"></span></td>
+						<td><span th:text="${inqury.inqury_comment}"></span></td>
 					</tr>
 				</tbody>
 			</table>
