@@ -71,15 +71,14 @@ layout:fragment="content">
 
 		<div id="content_body">
 
-			<form method="post" th:action="@{/quizwiki/qboard/write.do}" >
-			<form method="post" id="saveForm"  th:action="@{/quizwiki/qboard/write.do}">
+			<form method="post" id="saveForm"  th:action="@{/quizwiki/qboard/write.do}" >
 				<!-- 게시글 수정인 경우 서버로 전달할 게시글 번호 -->
 				
 				<input type="hidden" id="id" name="qboard_id" th:if="${qboard != null}" th:value="${qboard.qboard_id}" />
 				<input type="hidden" id="regDate" name="regDate" />
 				<select id="inSubject" autocomplete="categoryCode"
-					class="form-control" name="categoryCode"><option value=""
-						class="">과목을 선택해주세요.</option>
+					class="form-control" name="categoryCode">
+					<option value="" class="">과목을 선택해주세요.</option>
 					<option   value="korean" 	class="">국어</option>
 					<option value="english" class="">영어</option>
 					<option value="math" class="">수학</option></select> 
@@ -87,22 +86,13 @@ layout:fragment="content">
 					        
 					 
 				<!-- <textarea name="se2" id="se2" rows="10" cols="100" placeholder="질문 내용을 입력하세요." required></textarea> -->
-					class="form-control" name="categoryCode">
-					<option value="" class="">과목을 선택해주세요.</option>
-					<option   th:value="korean" 	class="">국어</option>
-					<option   th:value="english" class="">영어</option>
-					<option   th:value="math" class="">수학</option></select> 
-					
-					<input type="text"   id="title" name="title"    class="form-control" placeholder="제목" required />
-<!-- 				<textarea name="content" th:value="content" id="se2" placeholder="질문 내용을 입력하세요." required></textarea>
- -->				
+				
 				<div class="form-group">
 			      <input type="file" class="form-control-file border" name="file" >
 			    </div>
 				<textarea class="form-control" id="inContent" name="content" th:value="content"
 					placeholder="질문 내용을 입력하세요." required></textarea>
-				<textarea class="form-control" id="Content" name="content"
-					placeholder="질문 내용을 입력하세요." required></textarea>
+			
 				
 				<span style='float: right;'> <input type="button"
 					class="btn btn-default" value="취소" onclick="history.back();" /> 

@@ -19,7 +19,6 @@ public interface MemberDAO {
 	
 	
 	
-	public void certifiedPhone(String telnum);
-	public void certifiedNum(String numStr);
+	
 }
 

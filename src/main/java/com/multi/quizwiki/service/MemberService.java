@@ -18,7 +18,7 @@ public interface MemberService {
 	public MemberDTO find_id(MemberDTO dto);
 
 	// sms
-	public void certifiedPhoneNumber(String telnum, String numStr);
+	
 
 }
 

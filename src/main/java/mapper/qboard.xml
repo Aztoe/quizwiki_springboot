@@ -14,11 +14,11 @@
   	
   </select> 
  <!-- 게시글 리스트 -->
-  <select id="selectqboardlist" resultType="qboard.SearchDto" parameterType="qboard">
+  <select id="selectqboardlist" resultType="qboard" parameterType="qboard">
   		select * from qboard 
   		ORDER BY 
   			regdate DESC
-  		LIMIT #{offset}.#{recordSize}	 
+  		
   <!-- 게시글 수정  -->
   </select> 
    <update id="update" parameterType="qboard">
@@ -34,7 +34,7 @@
 			delete from qboard where qboard_id=#{qboard_id}
 	</delete>
 	
-	<select id="count" parameterType="qboard.SearchDto" resultType="int">	
+	<select id="count" parameterType="qboard" resultType="int">	
 		select count(*) from qboard  
 		
 	</select>

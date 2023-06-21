@@ -24,7 +24,7 @@ import com.univcert.api.UnivCert;
 
 @Controller
 public class MemberController {
-
+	
 	MemberService service;
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -187,14 +187,7 @@ public class MemberController {
 	 * }
 	 */
 
-	@RequestMapping(value = "/test", produces = "application/json;charset=utf-8 ")
-	// @ResponseBody
-	public String test(String email, String universityName) throws IOException {
-		System.out.println("============email===========");
-		UnivCert.certify("b7026b59-2d05-4165-be01-de304e8c76ae", email, universityName, true);
-		return "test";
-	}
-
+	
 	// sms 인증
 //	@RequestMapping("/sendSMS")
 //	@ResponseBody

@@ -1,4 +1,3 @@
-
 package com.multi.quizwiki.dao;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,9 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import com.multi.quizwiki.dto.MemberDTO;
 
+import lombok.RequiredArgsConstructor;
+
 @Repository
+@RequiredArgsConstructor
 public class MemberDAOImpl implements MemberDAO {
-	
+	@Autowired
 	SqlSession sqlSession;
 	
 	
@@ -19,9 +21,7 @@ public class MemberDAOImpl implements MemberDAO {
 		this.sqlSession = sqlSession;
 	}
 
-	public MemberDAOImpl() {
-		
-	}
+	
 
 	// 로그인
 	@Override
@@ -55,24 +55,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return id;
 	}
 	
-	@Override
-	public void certifiedPhone(String telnum) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void certifiedNum(String numStr) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 
 	
 	
 	
 
 }
-
