@@ -1,0 +1,24 @@
+$("#updatePassBtn").on("click",()=>{
+	this.updatePass();
+});
+
+updatePass:function(){
+
+	let data = {
+		pass:$("#pass").val()
+		
+	};
+	
+	$.ajax({
+		type:"put",
+		url:"/update/pass",
+		data:JSON.stringify(data),
+		dataType:"json"
+	}).done(function(resp){
+		alert("수정 완료");
+		location.href="/login.do";
+	}).fail(function(error){
+		alert(JSON.stringify(error));
+	});
+
+}

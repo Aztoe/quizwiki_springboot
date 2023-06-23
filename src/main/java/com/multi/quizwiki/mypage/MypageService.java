@@ -1,4 +1,4 @@
-package com.multi.quizwiki.service;
+package com.multi.quizwiki.mypage;
 
 import java.util.List;
 

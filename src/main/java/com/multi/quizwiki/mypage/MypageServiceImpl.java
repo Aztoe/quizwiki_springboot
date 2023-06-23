@@ -1,11 +1,10 @@
-package com.multi.quizwiki.service;
+package com.multi.quizwiki.mypage;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.multi.quizwiki.dao.MypageDAO;
 import com.multi.quizwiki.dto.InquryDTO;
 import com.multi.quizwiki.dto.InquryReplyDTO;
 import com.multi.quizwiki.dto.NoteDTO;

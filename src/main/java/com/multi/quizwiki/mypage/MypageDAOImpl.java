@@ -1,4 +1,4 @@
-package com.multi.quizwiki.dao;
+package com.multi.quizwiki.mypage;
 
 import java.util.HashMap;
 import java.util.List;

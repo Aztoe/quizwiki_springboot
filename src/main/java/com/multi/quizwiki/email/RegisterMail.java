@@ -1,4 +1,4 @@
-package com.multi.quizwiki.service;
+package com.multi.quizwiki.email;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
@@ -17,11 +17,14 @@ import org.springframework.stereotype.Service;
 public class RegisterMail implements MailServiceInter {
 
 	@Autowired
-	JavaMailSender emailsender; // Bean 등록해둔 MailConfig 를 emailsender 라는 이름으로 autowired
+	JavaMailSender emailsender; // Bean 등록해둔 MailConfig를 emailsender 라는 이름으로 autowired
+	
+//	@Autowired
+//	private RegisterMail registerMail;
 
 	private String ePw; // 인증번호
 
-	// 메일 내용 작성
+	// 메일 내용 작성 - 회원가입
 	@Override
 	public MimeMessage createMessage(String to) throws MessagingException, UnsupportedEncodingException {
 //		System.out.println("보내는 대상 : " + to);
@@ -51,6 +54,8 @@ public class RegisterMail implements MailServiceInter {
 
 		return message;
 	}
+	
+	
 
 	// 랜덤 인증 코드 전송
 	@Override
@@ -101,4 +106,8 @@ public class RegisterMail implements MailServiceInter {
 
 		return ePw; // 메일로 보냈던 인증 코드를 서버로 반환
 	}
+
+
+
+	
 }
